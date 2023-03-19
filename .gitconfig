@@ -1,0 +1,8 @@
+[user]
+	name = adjmunro
+	email = 75865923+adjmunro@users.noreply.github.com
+[core]
+	excludesfile = ~/.gitignore
+	editor = vim
+[credential]
+	helper = osxkeychain
