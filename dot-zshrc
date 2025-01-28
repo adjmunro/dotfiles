@@ -1,0 +1,46 @@
+###################
+### Zsh Aliases ###
+###################
+
+# Easy Config
+alias zenv="vim ~/.zshenv"
+alias zshrc="vim ~/.zshrc"
+alias zprofile="vim ~/.zprofile"
+alias zlogin="vim ~/.zlogin"
+alias zlocal="vim ~/.zlocal" # Local Machine Args
+alias cmise="vim ~/.config/mise/config.toml" # Langauge Versions Config
+alias cghost="vim ~/.config/ghostty/local-config" # Ghostty Local Config
+alias restart="source ~/.zshenv; source ~/.zshrc; source ~/.zprofile; source ~/.zlogin"
+
+# Dotfiles / GNU Stow
+alias prune-dirs="find -type d -empty -delete" # Prune empty directories
+alias prune-links="gfind -xtype l -delete" # Cleanup broken symlinks (i.e. GNU stow) 
+alias restow="stow . --dir=$DOTFILES --target=$HOME --dotfiles --restow"
+
+# Terminal Replacements
+alias ll="eza --all --git-ignore --long --header --no-permissions --no-user --time-style=relative --group-directories-first --icons=always --classify=always"
+alias cd="z"
+alias cat="bat"
+alias t="ll --tree --level "
+alias tree="tree --gitignore -C --dirsfirst -L"
+
+# Update Scripts
+alias apple-update="softwareupdate --download --all --agree-to-license"
+alias brew-update="brew update; brew upgrade; brew cleanup"
+alias mise-update="mise upgrade; mise prune --yes; mise list"
+alias rust-update="rustup toolchain install stable"
+alias update="brew-update; rust-update; mise-update; apple-update; neofetch"
+alias brewing="brew ls --versions"
+
+# Git Aliases
+local trunk="develop"
+alias fetch-trunk="git fetch origin $trunk:$trunk"
+alias restack-trunk="gt restack --branch $trunk"
+alias log-branches="gt log short --reverse --show-untracked"
+alias lb="log-branches"
+alias sync="fetch-trunk; restack-trunk; log-branches; prune-dirs"
+alias push-all="git push origin --all"
+
+# Other
+alias info="clear; neofetch; ll; log-branches"
+

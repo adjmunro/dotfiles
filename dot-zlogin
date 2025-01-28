@@ -1,0 +1,60 @@
+##########################
+###   Initialisation   ###
+##########################
+
+# Run Clear & Neofetch on Terminal Startup
+clear
+neofetch
+
+echo "Local Config:"
+echo "  machine  = $MACHINE"
+echo "  dotfiles = $DOTFILES"
+echo "  project  = $PROJECT"
+#TODO (zshenv) print-local-config
+
+##########################
+### Activation Scripts ###
+##########################
+
+# Oh My Posh (terminal prompt aesthetics)
+# let PoshThemeDisabled=false
+# let PoshTheme="${DOTFILES}/dot-config/oh-my-posh/themes/00-MainTheme.toml"
+
+#echo "Activate Oh-My-Posh"
+if which oh-my-posh > /dev/null;
+    then if [ "$TERM_PROGRAM" != "Apple_Terminal" ];
+        # then if $PoshThemeDisabled == true;
+            then eval "$(oh-my-posh init zsh)";
+            # else eval "$(oh-my-posh init zsh --config ${posh-theme})";
+        # fi;
+    fi;
+fi
+
+# Zoxide (`cd` / jump)
+#echo "Activate Zoxide"
+if which zoxide > /dev/null;
+    then eval "$(zoxide init zsh)";
+    else echo "zoxide is not installed!";
+fi
+
+# TheFuck (Command Auto-correct)
+#echo "Activate TheFuck"
+if which thefuck > /dev/null;
+    then eval "$(thefuck --alias)";
+    else echo "thefuck is not installed!";
+fi
+
+# Mise (Language Version Manager)
+#echo "Activate Mise"
+if which mise > /dev/null;
+    then eval "$("$BREW/mise" activate zsh)";
+    else echo "mise is not installed!";
+fi
+
+##########################
+###      Finally       ###
+##########################
+echo ""
+
+# Navigate to main dev directory
+z "$PROJECT"

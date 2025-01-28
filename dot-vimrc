@@ -1,0 +1,92 @@
+"##########################
+"### Vim Editor Options ###
+"##########################
+
+" Set file encoding
+set encoding=utf-8
+
+" Show line numbers
+set number
+
+" Show relative line numbers
+set relativenumber
+
+" Turn on syntax highlighting
+syntax on
+
+" Turn on bottom ruler (line number; column number)
+set ruler
+
+" Allows mouse clicks to change the cursor position
+set mouse=a
+
+
+
+"############################
+"### Text Editing Options ###
+"############################
+
+" Enable spell check highlighting
+" set spell
+
+
+
+"######################
+"### Search Options ###
+"######################
+
+" Use case-sensitive search, only when a capital letter is used, otherwise case-insensitive
+set smartcase
+
+" Show match as search proceeds
+set incsearch
+
+" Enable search highlighting
+set hlsearch
+
+
+
+"#######################
+"### Tab Key Options ###
+"#######################
+
+" Maximum character width of an actual tab character (measured in spaces)
+" You might want to make this significantly different from shiftwidth to differentiate tabs from spaces if expandtab is disabled
+set tabstop=4
+
+" The size of an "indent" created, measured in spaces
+set shiftwidth=4
+
+" A non-zero value will make the Tab key insert a combination of tabs and spaces to match the tabstop width
+set softtabstop=0
+
+" Insert spaces characters instead of tab characters when Tab key is pressed
+set expandtab
+
+" Move cursor to the indented beginning of the line (i.e. only preceded by whitespace)
+set smarttab
+
+" New lines will automatically have the same indentation as the previous line
+set autoindent
+
+" Indents react to the syntax of code you are editing (autoindent should also be enabled if this is on)
+set smartindent
+
+
+
+"###########################
+"### "I saw this online" ###
+"###########################
+"set wrap
+"set textwidth=79
+"set formatoptions=tcqrn1
+"set noshiftround
+"set scrolloff=3
+"set backspace=indent,eol,start
+"set ttyfast
+"set laststatus=2
+"set showmode
+"set showcmd
+
+
+
