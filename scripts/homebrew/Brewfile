@@ -8,6 +8,7 @@ tap "homebrew/services"
 
 #echo sudo pam.d sufficient pamid?
 brew "bat"			# Rusty `cat` w/ syntax highlighting + git integration
+brew "browserosaurus"	# Always choose which broswer to use when open a URL
 brew "cmatrix"		# Matrix display
 brew "direnv"		# Load/Unload environment variables based on $PWD
 brew "exa" 			# Human-reable alternative to `ls`
@@ -37,16 +38,34 @@ brew "zsh"			# MacOS Zsh shell is out of date!
 # Casks (GUI Applications)
 #cask_args appdir: "${HOME}/Applications", require_sha: true
 cask "android-file-transfer"	# File manager for Android phones
+#cask "anki"					# SRS Flashcards
+#cask "audacity"				# Sound Editor
 #cask "authy"					# Multi-device 2FA
+#cask "beeper"					# Multi-Messaging Client
 cask "brave-browser"			# Private Web Browser
-cask "docker"					# Lightweight VM Containers
-cask "fork"						# Free, Git GUI
+cask "browserosaurus"			# Select browser to open URLs
+#cask "cold-turkey-blocker"		# Go Cold Turkey
+#cask "db-browser-for-sqlite"	# Sqlite Database Browser
+#cask "discord"					# Discord Messaging Client
+#cask "docker"					# Lightweight VM Containers
+cask "git-kraken"				# Git GUI Client
 cask "jetbrains-toolbox"		# Download & Install JetBrains IDEs
 #cask "iina"					# MacOS Native Video Player
+#cask "iterm2"					# Terminal Replacement Theory
+#cask "krita"					# Digital Art Suite
+#cask "medibangpaintpro"		# Digital Art Suite
+#cask "messenger"				# Facebook Messenger Client
+#cask "minecraft"				# Minecraft
 cask "obsidian"					# Markdown note-taking app
-cask "spotify"					# Music client
+#cask "protonvpn"				# Proton VPN
 cask "slack"					# Work Messaging
+cask "spotify"					# Music client
+#cask "steam"					# Steam Game Launcher
 #cask "tailscale"				# Construct your own VPN?
+#cask "telegram"				# Telegram Messaging Client
+#cask "tor-browser"				# The Onion Browser
+#cask "visual-studio-code"		# VS Code
+#cask "vlc"						# Can play anything
 
 # Mac App Store (for automated app store installs)
 
