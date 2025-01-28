@@ -1,6 +1,11 @@
 "$schema" = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json"
 final_space = true
-version = 0
+version = 3
+console_title_template = "{{ .Shell }} in {{ .Folder }}"
+
+[palette]
+transparent = "#00000000"
+white = "#ffffffff"
 
 [[blocks]]
 type = "prompt"
@@ -10,8 +15,13 @@ alignment = "left"
   type = "path"
   style = "powerline"
   powerline_symbol = ""
-  foreground = "#ffffff"
+  foreground = "#p:white"
   background = "#61AFEF"
 
     [blocks.segments.properties]
-    style = "folder"
+    style = "full"
+
+  [[blocks.segments]]
+  type = "text"
+  style = "plain"
+  template = ">"
