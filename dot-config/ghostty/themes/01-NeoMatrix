@@ -1,0 +1,42 @@
+# ANSI Colors [Normal|Light]
+
+# Black
+palette = 0=#1a3a5e
+palette = 8=#63676c
+
+# Red
+palette = 1=#ea4d44
+palette = 9=#eb60ad
+
+# Green
+palette = 2=#88fbd2
+palette = 10=#99fbda
+
+# Yellow
+palette = 3=#fcf392
+palette = 11=#faf4b5
+
+# Blue
+palette = 4=#3674f0
+palette = 12=#4f8bf6
+
+# Magenta
+palette = 5=#be94e4
+palette = 13=#a782f7
+
+# Cyan
+palette = 6=#ec69cf
+palette = 14=#ed73d2
+
+# White
+palette = 7=#75f9a9
+palette = 15=#8df8c2
+
+# Other Colors
+foreground = e9def2
+background = 030b16
+cursor-color = 7efba5
+cursor-text = 000000
+selection-background = 7efba4
+selection-foreground = 000000
+

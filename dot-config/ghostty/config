@@ -1,0 +1,37 @@
+# Font & Text
+font-size = 16
+cursor-invert-fg-bg = true
+selection-invert-fg-bg = true
+
+# Theme
+theme = dark:"Earthsong", light:"00-SoftDark"
+
+# Window
+background-blur-radius = 20
+background-opacity = 0.5
+cursor-click-to-move = true
+focus-follows-mouse = true
+initial-window = false
+macos-titlebar-style = tabs
+mouse-hide-while-typing = true
+window-inherit-working-directory = true
+window-padding-balance = true
+window-padding-color = extend
+window-padding-x = 20
+window-padding-y = 20
+window-height = 67
+window-width = 102
+window-save-state = always
+
+# Split
+unfocused-split-opacity = 0.15
+
+# Quick Terminal
+quick-terminal-position = left
+
+# Keybindings
+keybind = global:command+escape=toggle_quick_terminal
+
+# Other Config Files
+config-file = ?./local-config
+
