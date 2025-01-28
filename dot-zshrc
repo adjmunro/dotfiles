@@ -2,6 +2,10 @@
 ### Zsh Aliases ###
 ###################
 
+# List Aliases, Functions, Parameters
+alias list-aliases="print -rl -- ${(k)aliases}"
+alias la="list-aliases"
+
 # Easy Config
 alias zenv="vim ~/.zshenv"
 alias zshrc="vim ~/.zshrc"

@@ -30,9 +30,11 @@ Some things may support local configuration (i will try to keep this up to date)
   ```
 
 #### Notes:
+- Use `la` or `list-aliases` to print a list of all registered aliases. [Read More](https://unix.stackexchange.com/questions/292903/list-names-of-aliases-functions-and-variables-in-zsh)
 - `alias X` can be used to print out an alias. <br>
   E.g. `alias zshrc` will show `vim ~/.zshrc`. <br>
   Notably, all substitutions will be completed, allowing you to see the real effect of an aliased command in your current context.
+- Use `restart` to re-source all zsh dotfiles.
 
 ---
 ### Next Steps:
