@@ -17,7 +17,7 @@ alias cghost="vim ~/.config/ghostty/local-config" # Ghostty Local Config
 alias restart="source ~/.zshenv; source ~/.zshrc; source ~/.zprofile; source ~/.zlogin"
 
 # Dotfiles / GNU Stow
-alias prune-dirs="find -type d -empty -delete" # Prune empty directories
+alias prune-dirs="gfind -type d -empty -delete" # Prune empty directories
 alias prune-links="gfind -xtype l -delete" # Cleanup broken symlinks (i.e. GNU stow) 
 alias restow="stow . --dir=$DOTFILES --target=$HOME --dotfiles --restow"
 
