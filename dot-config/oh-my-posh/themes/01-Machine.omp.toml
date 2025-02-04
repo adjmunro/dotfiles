@@ -1,0 +1,26 @@
+"$schema" = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json"
+version = 3
+final_space = true
+
+[palette]
+gold = "#F3AE35"
+
+[transient_prompt]
+
+[[blocks]]
+  type = "prompt"
+  alignment = "left"
+  newline = true
+
+  [[blocks.segments]]
+    type = "path"
+    style = "diamond"
+    leading_diamond = ""
+    trailing_diamond = ""
+    background = "p:gold"
+    foreground = "parentBackground"
+    #    template = " {{ .PWD }} "
+    template = "<f><b>{{ .Env.MACHINE }}</b></f>"
+
+    [blocks.segments.properties]
+      style = "folder"
