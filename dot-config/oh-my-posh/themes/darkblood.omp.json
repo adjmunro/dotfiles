@@ -5,49 +5,44 @@
       "alignment": "left",
       "segments": [
         {
-          "background": "#E36464",
-          "foreground": "#fff",
-          "leading_diamond": "\ue0b6",
-          "style": "diamond",
-          "template": "{{ .UserName }} ",
-          "trailing_diamond": "\ue0c6",
+          "foreground": "#ffffff",
+          "style": "plain",
+          "template": "<#CB4B16>\u250f[</>{{ .UserName }}<#CB4B16>]</>",
           "type": "session"
         },
         {
-          "background": "green",
-          "foreground": "#fff",
-          "leading_diamond": "\ue0c7",
-          "properties": {
-            "style": "folder"
-          },
-          "style": "diamond",
-          "template": " {{ .Path }} ",
-          "trailing_diamond": "\ue0c6",
-          "type": "path"
-        },
-        {
-          "background": "lightCyan",
-          "foreground": "#fff",
-          "leading_diamond": "\ue0c7",
-          "properties": {
-            "branch_icon": ""
-          },
-          "style": "diamond",
-          "template": " git({{ .HEAD }}) ",
-          "trailing_diamond": "\ue0c6",
+          "foreground": "#ffffff",
+          "style": "plain",
+          "template": "<#CB4B16>[</>{{ .HEAD }}<#CB4B16>]</>",
           "type": "git"
         },
         {
-          "background": "lightMagenta",
-          "foreground": "#fff",
-          "leading_diamond": "\ue0c7",
+          "foreground": "#ffffff",
+          "style": "plain",
+          "template": "<#CB4B16>[</>\uf0e7<#CB4B16>]</>",
+          "type": "root"
+        },
+        {
+          "foreground": "#ffffff",
+          "style": "plain",
+          "template": "<#CB4B16>[x</>{{ reason .Code }}<#CB4B16>]</>",
+          "type": "status"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "foreground": "#ffffff",
           "properties": {
-            "time_format": "15:04"
+            "style": "full"
           },
-          "style": "diamond",
-          "template": " {{ .CurrentDate | date .Format }} ",
-          "trailing_diamond": "\ue0c6",
-          "type": "time"
+          "style": "plain",
+          "template": "<#CB4B16>\u2516[</>{{ .Path }}<#CB4B16>]></>",
+          "type": "path"
         }
       ],
       "type": "prompt"
