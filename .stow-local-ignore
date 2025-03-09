@@ -27,3 +27,4 @@ _darcs
 /scripts
 /stow-ignore
 \.DS_STORE
+macos-setup.sh    # Remote install script

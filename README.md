@@ -1,4 +1,14 @@
 ## Setup
+
+### Remote Execution:
+Use curl on a fresh install to execute this remote script.
+***Note:** This only works for macos at this time.*
+TODO: Windows also supports curl by default, but linux may require `apt get` or some other package manager instead. Also this is a homebrew-based installation and doesn't necessarily make sense for other operating systems. Furthermore, the directory paths listed here are macos exclusive and would need to be adjusted for other machines.
+TODO: More installations need to be added, or a Brewfile could be added to install all core dependencies.
+```
+curl https://raw.githubusercontent.com/adjmunro/dotfiles/master/macos-setup.sh | sh
+```
+
 #### Installation:
 - **[Homebrew](https://brew.sh/) or [Nix Package Manager](https://nix.dev/install-nix)**
 
@@ -10,7 +20,7 @@
   ```
 - **Clone the repository**
   ```
-  git clone git@github.com:adjmunro/.dotfiles.git ~/Developer/Dotfiles
+  git clone git@github.com:adjmunro/dotfiles.git ~/Developer/dotfiles
   ```
 - **Use Stow to symlink the repository to your home directory.**
 
