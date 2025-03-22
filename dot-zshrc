@@ -37,6 +37,9 @@ alias 9="t 9"
 alias 0="t 10"
 alias tree="tree --gitignore -C --dirsfirst -L"
 
+# Fix Mise Cache
+alias fix-mise="mise cache clear; mise cache prune"
+
 # Update Scripts
 alias apple-update="softwareupdate --download --all --agree-to-license"
 alias brew-update="brew update; brew upgrade; brew cleanup"
