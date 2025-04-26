@@ -73,6 +73,11 @@ set autoindent
 set smartindent
 
 
+"########################
+"### "Shortcut Hacks" ###
+"#######################
+" Enables `:w!!` as "I forgot sudo when editing and now i can't save" to elevate privlages & save.
+cmap w!! %!sudo tee > /dev/null
 
 "###########################
 "### "I saw this online" ###
