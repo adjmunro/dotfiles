@@ -32,13 +32,6 @@ if which oh-my-posh > /dev/null;
     fi;
 fi
 
-# Zoxide (`cd` / jump)
-#echo "Activate Zoxide"
-if which zoxide > /dev/null;
-    then eval "$(zoxide init zsh)";
-    else echo "zoxide is not installed!";
-fi
-
 # TheFuck (Command Auto-correct)
 #echo "Activate TheFuck"
 if which thefuck > /dev/null;
