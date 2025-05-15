@@ -26,5 +26,5 @@ _darcs
 
 /install    # Installation scripts
 /zsh        # Integration scripts
-/stow-ignore
+/ignore
 \.DS_STORE
