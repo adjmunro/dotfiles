@@ -24,7 +24,7 @@ _darcs
 ^/LICENSE.*
 ^/COPYING
 
-/scripts
+/install    # Installation scripts
+/zsh        # Integration scripts
 /stow-ignore
 \.DS_STORE
-macos-setup.sh    # Remote install script
