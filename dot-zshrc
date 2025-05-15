@@ -24,11 +24,6 @@ alias prune-dirs="gfind -type d -empty -delete" # Prune empty directories
 alias prune-links="gfind -xtype l -delete" # Cleanup broken symlinks (i.e. GNU stow) 
 alias restow="stow . --dir=$DOTFILES --target=$HOME --dotfiles --restow"
 
-# Terminal Replacements
-alias cd="z"
-alias cat="bat"
-alias tree="tree --gitignore -C --dirsfirst -L"
-
 # Fix Mise Cache
 alias fix-mise="mise cache clear; mise cache prune"
 
