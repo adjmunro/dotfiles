@@ -2,6 +2,9 @@
 ### Zsh Aliases ###
 ###################
 
+source $DOTFILES/zsh/*.zsh
+source $DOTFILES/zsh/*/*.zsh
+
 # List Aliases, Functions, Parameters
 alias list-aliases="print -rl -- ${(k)aliases}"
 alias la="list-aliases"
@@ -22,19 +25,8 @@ alias prune-links="gfind -xtype l -delete" # Cleanup broken symlinks (i.e. GNU s
 alias restow="stow . --dir=$DOTFILES --target=$HOME --dotfiles --restow"
 
 # Terminal Replacements
-alias ll="eza --all --git-ignore --long --header --no-permissions --no-user --time-style=relative --group-directories-first --icons=always --classify=always"
 alias cd="z"
 alias cat="bat"
-alias t="ll --tree --level "
-alias 2="t 2"
-alias 3="t 3"
-alias 4="t 4"
-alias 5="t 5"
-alias 6="t 6"
-alias 7="t 7"
-alias 8="t 8"
-alias 9="t 9"
-alias 0="t 10"
 alias tree="tree --gitignore -C --dirsfirst -L"
 
 # Fix Mise Cache
