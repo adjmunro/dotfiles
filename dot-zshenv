@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # Export the location of symlinked .dotfiles repository directory.
 export DOTFILES="$(dirname "$(readlink -f "$0")")"
 export BREW="/opt/homebrew/bin"
