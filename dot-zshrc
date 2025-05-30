@@ -1,23 +1,16 @@
 #!/usr/bin/env zsh
 
+# Load all alias.zsh files.
+SourceAlias
+
 ###################
 ### Zsh Aliases ###
 ###################
-
-source $DOTFILES/zsh/*.zsh
-source $DOTFILES/zsh/*/*.zsh
 
 # List Aliases, Functions, Parameters
 alias list-aliases="print -rl -- ${(k)aliases}"
 alias la="list-aliases"
 
-# Easy Config
-alias zenv="vim ~/.zshenv"
-alias zshrc="vim ~/.zshrc"
-alias zprofile="vim ~/.zprofile"
-alias zlogin="vim ~/.zlogin"
-alias zlocal="vim ~/.zlocal" # Local Machine Args
-alias cmise="vim ~/.config/mise/config.toml" # Langauge Versions Config
 alias cghost="vim ~/.config/ghostty/local-config" # Ghostty Local Config
 alias restart="source ~/.zshenv; source ~/.zshrc; source ~/.zprofile; source ~/.zlogin"
 
