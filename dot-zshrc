@@ -40,4 +40,4 @@ alias retrack="gt untrack; gt track"
 
 # Other
 alias info="clear; neofetch; ll; log-branches"
-
+alias cls="printf \"\e[H\e[22J\""
