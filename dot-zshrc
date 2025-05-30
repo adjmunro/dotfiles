@@ -26,15 +26,6 @@ alias prune-dirs="gfind -type d -empty -delete" # Prune empty directories
 alias prune-links="gfind -xtype l -delete" # Cleanup broken symlinks (i.e. GNU stow) 
 alias restow="stow . --dir=$DOTFILES --target=$HOME --dotfiles --restow"
 
-# Fix Mise Cache
-alias fix-mise="mise cache clear; mise cache prune"
-
-# Update Scripts
-alias apple-update="softwareupdate --download --all --agree-to-license"
-alias brew-update="brew update; brew upgrade; brew cleanup"
-alias mise-update="mise upgrade; mise prune --yes; mise list"
-alias rust-update="rustup toolchain install stable"
-alias update="brew-update; rust-update; mise-update; apple-update; neofetch"
 alias brewing="brew ls --versions"
 
 # Git Aliases
