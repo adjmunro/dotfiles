@@ -5,7 +5,10 @@
 #               custom printout functions
 # --------------------------------------------------------------------------- #
 
-export DEBUG=false
+# Only export default if not set to true.
+if [ "$DEBUG" != true ]; then
+    export DEBUG=false
+fi;
 
 # Echo arguments only in verbose mode.
 function debug() {
@@ -13,6 +16,15 @@ function debug() {
     if [ "$DEBUG" = true ]; then
         # Pass all arguments ($@) to echo 
         echo "$@"
+    fi
+}
+
+# Printf arguments only in verbose mode.
+function debugf() {
+    # Check that verbose mode is enabled. 
+    if [ "$DEBUG" = true ]; then
+        # Pass all arguments ($@) to echo 
+        printf "$@"
     fi
 }
 
