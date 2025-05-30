@@ -1,12 +1,17 @@
 #!/usr/bin/env zsh
-guard eza
 
 # --------------------------------------------------------------------------- #
 #       [ZSH]   eza/alias   
 #               ls and tree replacements
 # --------------------------------------------------------------------------- #
 
+# Check that eza is instlled
+require eza
+
+# Pretty-print ls
 alias 1="eza --all --git-ignore --long --header --no-permissions --no-user --time-style=relative --group-directories-first --icons=always --classify=always"
+
+# Pretty-print tree
 alias 2="1 --tree --level 2"
 alias 3="1 --tree --level 3"
 alias 4="1 --tree --level 4"
