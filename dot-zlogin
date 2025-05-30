@@ -1,5 +1,8 @@
 #!/usr/bin/env zsh
 
+# Load all login.zsh files.
+SourceLogin
+
 ##########################
 ###   Initialisation   ###
 ##########################

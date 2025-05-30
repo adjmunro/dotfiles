@@ -7,6 +7,8 @@ export BREW="/opt/homebrew/bin"
 # Note: '. X' is the same as 'source X'
 source "$HOME/.cargo/env"
 source "$HOME/.zlocal"
+source "$DOTFILES/zsh/loaders.zsh"
+SourceCore
 
 #alias print-local-config=$(cat << EOF
 #Local Config:
