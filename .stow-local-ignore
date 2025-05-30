@@ -2,6 +2,11 @@
 
 # Comments and blank lines are allowed.
 
+/docs       # Notes for future reference
+/install    # Installation scripts
+/ignore     # Ignore Unsorted Scripts
+/zsh        # Integration scripts
+
 RCS
 .+,v
 
@@ -16,6 +21,7 @@ _darcs
 \.git
 \.gitignore
 \.gitmodules
+\.jj
 
 .+~          # emacs backup files
 \#.*\#       # emacs autosave files
@@ -23,8 +29,4 @@ _darcs
 ^/README.*
 ^/LICENSE.*
 ^/COPYING
-
-/install    # Installation scripts
-/zsh        # Integration scripts
-/ignore
 \.DS_STORE
