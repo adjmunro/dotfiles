@@ -8,6 +8,6 @@
 export EDITOR="vim"
 
 # Alias the default text editor
-alias edit="$EDITOR"
-alias e="$EDITOR"
+alias edit='$EDITOR'
+alias e='$EDITOR'
 
