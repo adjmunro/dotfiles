@@ -35,13 +35,6 @@ if which oh-my-posh > /dev/null;
     fi;
 fi
 
-# TheFuck (Command Auto-correct)
-#echo "Activate TheFuck"
-if which thefuck > /dev/null;
-    then eval "$(thefuck --alias)";
-    else echo "thefuck is not installed!";
-fi
-
 ##########################
 ###      Finally       ###
 ##########################
