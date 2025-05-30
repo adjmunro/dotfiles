@@ -14,7 +14,7 @@ function dotfiles() {
 
     if [[ $sub = "sync" ]]; then
         git --git-dir="$DOTFILES" fetch origin main:main
-    fi;
+    fi
 }
 
 # ------------------------------
