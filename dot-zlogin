@@ -42,13 +42,6 @@ if which thefuck > /dev/null;
     else echo "thefuck is not installed!";
 fi
 
-# Mise (Language Version Manager)
-#echo "Activate Mise"
-if which mise > /dev/null;
-    then eval "$("$BREW/mise" activate zsh)";
-    else echo "mise is not installed!";
-fi
-
 ##########################
 ###      Finally       ###
 ##########################

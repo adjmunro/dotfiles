@@ -11,6 +11,7 @@ SourceAlias
 alias list-aliases="print -rl -- ${(k)aliases}"
 alias la="list-aliases"
 
+# Easy Config
 alias cghost="vim ~/.config/ghostty/local-config" # Ghostty Local Config
 alias restart="source ~/.zshenv; source ~/.zshrc; source ~/.zprofile; source ~/.zlogin"
 
