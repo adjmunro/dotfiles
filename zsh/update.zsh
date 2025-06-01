@@ -6,12 +6,12 @@
 
 # Source all update files.
 function update() {
-    debug "----------------------------------"
+    echo "----------------------------------"
     for f in $DOTFILES/zsh/*/update.zsh; do
         source $f;
-        debug "----------------------------------"
+        echo "----------------------------------"
     done;
 
-    require neofetch && neofetch
+    whence neofetch &>/dev/null && neofetch
 }
 
