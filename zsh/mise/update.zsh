@@ -4,7 +4,9 @@
 #       [ZSH]   mise/update   
 # --------------------------------------------------------------------------- #
 
-debug "Update Mise Version Manager"
+# Check that mise is installed
+which mise &>/dev/null || return false
+echo "Update Mise Version Manager"
 
 # Clean mise cache (precaution)
 fix-mise

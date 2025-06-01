@@ -4,7 +4,9 @@
 #       [ZSH]   brew/update   
 # --------------------------------------------------------------------------- #
 
-debug "Update Homebrew Packages"
+# Check that Homebrew is installed
+whence brew &>/dev/null || return false
+echo "Update Homebrew Packages"
 
 # Pull remote version database
 brew update
@@ -14,4 +16,7 @@ brew upgrade
 
 # Remove old files & cache
 brew cleanup
+
+# Run brew doctor to check for issues
+brew doctor
 

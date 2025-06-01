@@ -4,6 +4,10 @@
 #       [ZSH]   rustup/update   
 # --------------------------------------------------------------------------- #
 
-debug "Update Rust Toolchain"
+# Check that Rustup is installed
+which rustup &>/dev/null || return false
+echo"Update Rust Toolchain"
+
+# Update Rust Toolchain
 rustup toolchain install stable
 
