@@ -1,14 +1,13 @@
 #!/usr/bin/env zsh
 
 # --------------------------------------------------------------------------- #
-#       [ZSH]   mise/login   
+#       [ZSH]   mise/activate   
 # --------------------------------------------------------------------------- #
 
 # Check that mise is installed.
-return $( require mis && debugf "Activate %-15s %s\n" "Mise" "@$(whence -p mise)"
-)
+whence mise &>/dev/null || return false
+printf "Activate %-15s %s\n" "Mise" "@$(whence -p mise)"
 
-echo "didn't escape!"
 # Activate mise.
 eval "$(mise activate zsh)"
 

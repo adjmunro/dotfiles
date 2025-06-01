@@ -1,11 +1,12 @@
 #!/usr/bin/env zsh
 
 # --------------------------------------------------------------------------- #
-#       [ZSH]   thefuck/login   
+#       [ZSH]   thefuck/activate   
 # --------------------------------------------------------------------------- #
 
 # Check that thefuck is installed.
-require thefuck && debugf "Activate %-15s %s\n" "TheFuck" "@$(command -v thefuck)"
+whence thefuck &>/dev/null || return false
+printf "Activate %-15s %s\n" "TheFuck" "@$(whence -p thefuck)"
 
 # Activate thefuck.
 eval "$(thefuck --alias)"
