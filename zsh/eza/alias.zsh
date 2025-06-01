@@ -5,8 +5,9 @@
 #               ls and tree replacements
 # --------------------------------------------------------------------------- #
 
-# Check that eza is instlled
-require eza
+# Check that eza is installed
+whence eza &>/dev/null || return false
+echo "Source $0"
 
 # Pretty-print ls
 alias 1="eza --all --git-ignore --long --header --no-permissions --no-user --time-style=relative --group-directories-first --icons=always --classify=always"
