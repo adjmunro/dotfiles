@@ -2,10 +2,7 @@
 
 # Comments and blank lines are allowed.
 
-/docs       # Notes for future reference
-/install    # Installation scripts
-/ignore     # Ignore Unsorted Scripts
-/zsh        # Integration scripts
+/_*     # Ignore any directory starting with underscore `_`
 
 RCS
 .+,v
