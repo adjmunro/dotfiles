@@ -2,16 +2,10 @@
 
 # Export the location of symlinked .dotfiles repository directory.
 export DOTFILES="$(dirname "$(readlink -f "$0")")"
-export BREW="/opt/homebrew/bin"
 
-# Note: '. X' is the same as 'source X'
+# Source environmental variables
+source "$DOTFILES/zsh/editor.zsh"
+source "$DOTFILES/zsh/*/env.zsh"
 source "$HOME/.zlocal"
-source "$DOTFILES/zsh/loaders.zsh"
-SourceCore
 
-#alias print-local-config=$(cat << EOF
-#Local Config:
-#  dotfiles = $DOTFILES
-#  machine  = $MACHINE
-#  project  = $PROJECT
-#EOF)
+export BREW="/opt/homebrew/bin"

@@ -1,8 +1,5 @@
 #!/usr/bin/env zsh
 
-# Load all alias.zsh files.
-SourceAlias
-
 ###################
 ### Zsh Aliases ###
 ###################
@@ -30,3 +27,7 @@ alias retrack="gt untrack; gt track"
 # Other
 alias info="clear; neofetch; ll; log-branches"
 alias cls="printf \"\e[H\e[22J\""
+
+local dir="$DOTFILES/zsh"
+source "$d/dotfiles.zsh" "$d/editor.zsh" "$d/theme.zsh" "$d/update.zsh" 
+source "$d/*/activate.zsh" "$d/init.zsh"
