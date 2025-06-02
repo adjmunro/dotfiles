@@ -4,8 +4,9 @@
 #       [ZSH]   module/filename   
 #               simple explaination of file contents 
 # --------------------------------------------------------------------------- #
+
+# Check that [name] is installed
 #whence names &>/dev/null || return false 
-#echo "Source $0"
 
 # ------------------------------
 #   Section Header

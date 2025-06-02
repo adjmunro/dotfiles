@@ -6,7 +6,6 @@
 
 # Check that GNU Stow is installed
 whence stow &>/dev/null || return false
-echo "Source $0"
 
 # Restow files all from DOTFILES to HOME, with dot-* substition.
 alias restow="stow . --dir=$DOTFILES --target=$HOME --dotfiles --restow"

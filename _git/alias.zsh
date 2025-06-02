@@ -6,7 +6,6 @@
 
 # Check that Git is installed
 whence git &>/dev/null || return false
-echo "Source $0"
 
 # Delete merbed branches? TODO(verify!)
 alias gdmb='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'

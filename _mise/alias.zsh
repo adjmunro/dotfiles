@@ -6,7 +6,6 @@
 
 # Check that mise is installed
 which mise &>/dev/null || return false
-echo "Source $0"
 
 # Easy config
 alias cmise="edit ~/.config/mise/config.toml"
