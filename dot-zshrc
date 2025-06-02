@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # Glob & source files in ./_zshrc directory
-source "$DOTFILES/_zshrc/*.zsh"
+sources $DOTFILES/_zshrc/*.zsh
 
 ###################
 ### Zsh Aliases ###
@@ -31,8 +31,11 @@ alias retrack="gt untrack; gt track"
 alias info="clear; neofetch; ll; log-branches"
 alias cls="printf \"\e[H\e[22J\""
 
+# Glob & source all aliases
+sources $DOTFILES/*/alias.zsh
+
 # Glob & source all package activation scripts
-source "$DOTFILES/*/activate.zsh"
+sources $DOTFILES/*/activate.zsh
 
 # Shell initialisation behaviour
-source "$DOTFILES/_init.zsh"
+sources $DOTFILES/_init.zsh
