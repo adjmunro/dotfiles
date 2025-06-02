@@ -2,9 +2,10 @@
 
 # Comments and blank lines are allowed.
 # `\` is escaping, `/` is a directory.
+# `*` is NOT a glob, it's regex!
 
-/_*     # Ignore any directory prefixed with `_`
-_*      # Ignore any files prefixed with `_`
+/_.*     # Ignore any directory prefixed with `_`
+_.*      # Ignore any files prefixed with `_`
 
 RCS
 .+,v
@@ -21,6 +22,8 @@ _darcs
 \.gitignore
 \.gitmodules
 \.jj
+
+.*\.swp
 
 .+~          # emacs backup files
 \#.*\#       # emacs autosave files
