@@ -2,7 +2,8 @@
 
 # Comments and blank lines are allowed.
 
-/_*     # Ignore any directory starting with underscore `_`
+/_*     # Ignore any directory prefixed with `_`
+_*      # Ignore any files prefixed with `_`
 
 RCS
 .+,v
