@@ -6,13 +6,14 @@
 
 function dotfiles() {
     if (( $# == 0 )); then
-        edit "$DOTFILES";
-        return 0;
+        edit $DOTFILES;
+        return true;
     fi;
 
-    local sub=$1
 
+    local sub=$1
     if [[ $sub = "sync" ]]; then
+        whence git &>/dev/null || return $(err "Git not installed!")
         git --git-dir="$DOTFILES" fetch origin main:main
     fi
 }
@@ -59,5 +60,6 @@ alias zlogout="edit ~/.zlogout"
 #   Management
 # ------------------------------
 
-#alias reshell= /restart -- wait, i think i misunderstood login vs interactive but it work anyway atm because restart sources everything?
+# Re-source zshenv & zshrc files
+alias reshell="source ~/.zshenv ~/.zshrc"
 

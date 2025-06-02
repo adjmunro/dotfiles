@@ -1,6 +1,7 @@
 # https://www.gnu.org/software/stow/manual/html_node/Types-And-Syntax-Of-Ignore-Lists.html
 
 # Comments and blank lines are allowed.
+# `\` is escaping, `/` is a directory.
 
 /_*     # Ignore any directory prefixed with `_`
 _*      # Ignore any files prefixed with `_`

@@ -3,9 +3,9 @@
 # Export the location of symlinked .dotfiles repository directory.
 export DOTFILES="$(dirname "$(readlink -f "$0")")"
 
-# Source environmental variables
-source "$DOTFILES/zsh/editor.zsh"
-source "$DOTFILES/zsh/*/env.zsh"
+# Glob & source environmental variables
+source "$DOTFILES/_zshenv/*.zsh"
+source "$DOTFILES/*/env.zsh"
 source "$HOME/.zlocal"
 
 export BREW="/opt/homebrew/bin"
