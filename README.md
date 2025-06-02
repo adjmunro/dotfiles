@@ -1,5 +1,13 @@
 ## Setup
 
+### Project Structure:
+- The prefix `dot-` will be renamed when symlinked by GNU Stow, hence, `dot-config` is `.config` and `dot-zshrc` is `.zshrc`.
+- Directories prefixed with `_` are explicity ignored by GNU Stow and are *not* symlinked (nor are their contents).
+- `activate.zsh` contains activation scripts for a package.
+- `alias.zsh` contains aliases specific to that package. *Note: aliases with mulitple dependencies should be placed in the `./_combo` directory instead!*
+- `env.zsh` set up environment variables for a package.
+- `update.zsh` contains that package's upgrade scripts, which are run collectively via the `update` function in `./_zsh`.
+
 ### Remote Execution:
 Use curl on a fresh install to execute this remote script.
 ***Note:** This only works for macos at this time.*
