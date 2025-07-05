@@ -23,4 +23,3 @@ sources $DOTFILES/_zshenv/*.zsh
 sources $DOTFILES/*/env.zsh
 sources "$HOME/.zlocal"
 
-export BREW="/opt/homebrew/bin"
