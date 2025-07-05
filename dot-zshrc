@@ -3,6 +3,9 @@
 # Glob & source files in ./_zshrc directory
 sources $DOTFILES/_zshrc/*.zsh
 
+# Glob & source files all init files
+sources $DOTFILES/*/init.zsh
+
 ###################
 ### Zsh Aliases ###
 ###################

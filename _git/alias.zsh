@@ -34,3 +34,8 @@ alias untrack-gitignore="list-gitignore | sed 's/.*/\"&\"/' | xargs $(git-untrac
 # Delete merged branches? TODO(verify!)
 alias rm-merged='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'
 
+abbr s="git status"
+abbr co="git checkout"
+abbr br="git branch"
+abbr cm="git commit -m"
+abbr lg="git log --oneline --graph --decorate --all"
