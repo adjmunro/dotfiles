@@ -1,5 +1,8 @@
 #!/usr/bin/env zsh
 
+# Get any local config
+source "$HOME/.zlocal"
+
 # Export the location of symlinked dotfiles repository directory.
 export DOTFILES="$(dirname "$(realpath ${(%):-%N})")"
 
@@ -21,5 +24,4 @@ function sources() {
 # Glob & source environmental variables
 sources $DOTFILES/_zshenv/*.zsh
 sources $DOTFILES/*/env.zsh
-sources "$HOME/.zlocal"
 
