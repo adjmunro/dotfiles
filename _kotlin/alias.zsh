@@ -6,11 +6,13 @@
 
 mkmod() {
   local FORCE=0
+  local DRY_RUN=0
 
-  # parse flags (supports --force and -f)
+  # parse flags (supports --force/-f, --dry-run/-n)
   while [[ "$1" == --* || "$1" == -* ]]; do
     case "$1" in
       --force|-f) FORCE=1; shift ;;
+      --dry-run|-n) DRY_RUN=1; shift ;;
       --) shift; break ;;
       *) echo "Unknown option: $1"; return 1 ;;
     esac
@@ -20,10 +22,11 @@ mkmod() {
   local MODULE=$2
 
   if [[ -z "$GROUP" || -z "$MODULE" ]]; then
-    echo "Usage: mkmod [--force|-f] <group.dot.path> <:module:submodule>"
+    echo "Usage: mkmod [--force|-f] [--dry-run|-n] <group.dot.path> <:module:submodule>"
     echo "Examples:"
     echo "  mkmod com.orbitremit :domain:util"
     echo "  mkmod --force com.orbitremit :domain:util"
+    echo "  mkmod --dry-run com.orbitremit :domain:util"
     return 1
   fi
 
@@ -41,9 +44,17 @@ mkmod() {
   local ModuleName=$(echo "$MODULE_PATH" | tr '/' ' ' | awk '{for(i=1;i<=NF;i++){ $i=toupper(substr($i,1,1)) substr($i,2) }}1' | tr -d ' ')
   local KOIN_FILENAME="Koin${ModuleName}Module"
 
-  # ensure directories exist
-  mkdir -p "$MODULE_PATH/src/main/kotlin/$GROUP_PATH/$MODULE_PATH"
-  mkdir -p "$MODULE_PATH/src/test/kotlin/$GROUP_PATH/$MODULE_PATH"
+  # directories
+  local MAIN_DIR="$MODULE_PATH/src/main/kotlin/$GROUP_PATH/$MODULE_PATH"
+  local TEST_DIR="$MODULE_PATH/src/test/kotlin/$GROUP_PATH/$MODULE_PATH"
+  local KOIN_DEST="$MAIN_DIR/$KOIN_FILENAME.kt"
+
+  # helper: print with colors
+  local BOLD="\033[1m"
+  local GREEN="\033[0;32m"
+  local YELLOW="\033[0;33m"
+  local CYAN="\033[0;36m"
+  local RESET="\033[0m"
 
   # helper: safe copy+substitute
   copy_template() {
@@ -51,29 +62,49 @@ mkmod() {
     local DEST="$2"
 
     if [[ ! -f "$SRC" ]]; then
-      echo "Template not found: $SRC" >&2
+      echo "${YELLOW}⚠️  Template not found: $SRC${RESET}" >&2
       return 1
     fi
 
-    if [[ $FORCE -eq 1 || ! -f "$DEST" ]]; then
-      sed -e "s|{{MODULE}}|$MODULE|g" \
-          -e "s|{{NAMESPACE}}|$NAMESPACE|g" \
-          -e "s|{{FILENAME}}|$KOIN_FILENAME|g" \
-          "$SRC" > "$DEST"
-      echo "- Created: $DEST"
-    else
-      echo "- Skipped (already exists): $DEST"
+    if [[ -f "$DEST" && $FORCE -eq 0 ]]; then
+      echo "${CYAN}- Skipped (already exists):${RESET} $DEST"
+      return
     fi
+
+    if [[ $DRY_RUN -eq 1 ]]; then
+      echo "${YELLOW}- Would create:${RESET} $DEST"
+      return
+    fi
+
+    mkdir -p "$(dirname "$DEST")"
+    sed -e "s|{{MODULE}}|$MODULE|g" \
+        -e "s|{{NAMESPACE}}|$NAMESPACE|g" \
+        -e "s|{{FILENAME}}|$KOIN_FILENAME|g" \
+        "$SRC" > "$DEST"
+    echo "${GREEN}- Created:${RESET} $DEST"
   }
 
-  # copy templates (safe)
-  copy_template "$DOTFILES/_kotlin/README.md" \
-                "$README_FILE"
-  copy_template "$DOTFILES/_kotlin/build.gradle.kts" \
-                "$MODULE_PATH/build.gradle.kts"
-  copy_template "$DOTFILES/_kotlin/KoinModule.kt" \
-                "$MODULE_PATH/src/main/kotlin/$GROUP_PATH/$MODULE_PATH/$KOIN_FILENAME.kt"
+  # show summary if dry-run
+  if [[ $DRY_RUN -eq 1 ]]; then
+    echo "${BOLD}🔍 Dry run mode — no files will be written${RESET}"
+  fi
 
-  echo "Module '$MODULE' setup complete under group '$GROUP'."
+  # create directories (unless dry-run)
+  if [[ $DRY_RUN -eq 0 ]]; then
+    mkdir -p "$MAIN_DIR" "$TEST_DIR"
+  else
+    echo "${YELLOW}- Would create dirs:${RESET} $MAIN_DIR, $TEST_DIR"
+  fi
+
+  # copy templates
+  copy_template "$DOTFILES/_kotlin/README.md" "$README_FILE"
+  copy_template "$DOTFILES/_kotlin/build.gradle.kts" "$MODULE_PATH/build.gradle.kts"
+  copy_template "$DOTFILES/_kotlin/KoinModule.kt" "$KOIN_DEST"
+
+  if [[ $DRY_RUN -eq 1 ]]; then
+    echo "${BOLD}✅ Dry run complete.${RESET}"
+  else
+    echo "${BOLD}✅ Module '$MODULE' setup complete under group '$GROUP'.${RESET}"
+  fi
 }
 
