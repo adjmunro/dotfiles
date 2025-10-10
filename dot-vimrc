@@ -20,7 +20,8 @@ set ruler
 " Allows mouse clicks to change the cursor position
 set mouse=a
 
-
+" Fix clipboard for OS interop
+set clipboard=unnamedplus,unnamed,autoselect
 
 "############################
 "### Text Editing Options ###
