@@ -47,6 +47,7 @@ mkmod() {
   # directories
   local MAIN_DIR="$MODULE_PATH/src/main/kotlin/$GROUP_PATH/$MODULE_PATH"
   local TEST_DIR="$MODULE_PATH/src/test/kotlin/$GROUP_PATH/$MODULE_PATH"
+  local ANDROID_TEST_DIR="$MODULE_PATH/src/androidTest/kotlin/$GROUP_PATH/$MODULE_PATH"
   local KOIN_DEST="$MAIN_DIR/$KOIN_FILENAME.kt"
 
   # helper: print with colors
@@ -91,9 +92,14 @@ mkmod() {
 
   # create directories (unless dry-run)
   if [[ $DRY_RUN -eq 0 ]]; then
-    mkdir -p "$MAIN_DIR" "$TEST_DIR"
+    mkdir -p "$MAIN_DIR" "$TEST_DIR" "$ANDROID_TEST_DIR"
+    touch "$TEST_DIR/gitstub" "$ANDROID_TEST_DIR/gitstub"
+    echo "${GREEN}- Created:${RESET} $TEST_DIR/gitstub"
+    echo "${GREEN}- Created:${RESET} $ANDROID_TEST_DIR/gitstub"
   else
     echo "${YELLOW}- Would create dirs:${RESET} $MAIN_DIR, $TEST_DIR"
+    echo "${YELLOW}- Would create:${RESET} $TEST_DIR/gitstub"
+    echo "${YELLOW}- Would create:${RESET} $ANDROID_TEST_DIR/gitstub"
   fi
 
   # copy templates
