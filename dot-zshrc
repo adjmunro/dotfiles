@@ -10,6 +10,9 @@ sources $DOTFILES/*/init.zsh
 ### Zsh Aliases ###
 ###################
 
+# temp - remove later when stable & one homebrew tap
+export PATH="/Users/adjmunro/Developer/zsh-worktree/main/bin:$PATH"
+
 # List Aliases, Functions, Parameters
 alias list-aliases="print -rl -- ${(k)aliases}"
 alias la="list-aliases"
