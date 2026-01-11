@@ -29,6 +29,7 @@ alias lb="log-branches"
 alias sync="fetch-trunk; restack-trunk; log-branches; prune-dirs"
 alias push-all="git push origin --all"
 alias retrack="gt untrack; gt track"
+function gitstub() { mkdir -p "$1"; touch "$1/gitstub" }
 
 # Other
 alias info="clear; neofetch; ll; log-branches"
