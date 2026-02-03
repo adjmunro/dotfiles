@@ -2,11 +2,14 @@
 
 ### Project Structure:
 - The prefix `dot-` will be renamed when symlinked by GNU Stow, hence, `dot-config` is `.config` and `dot-zshrc` is `.zshrc`.
-- Directories prefixed with `_` are explicity ignored by GNU Stow and are *not* symlinked (nor are their contents).
+- Directories and files prefixed with `_` are explicity ignored by GNU Stow and are *not* symlinked (nor are their contents).
 - `activate.zsh` contains activation scripts for a package.
-- `alias.zsh` contains aliases specific to that package. *Note: aliases with mulitple dependencies should be placed in the `./_combo` directory instead!*
-- `env.zsh` set up environment variables for a package.
+- `alias.zsh` contains aliases specific to that package.
+- `env.zsh` sets up environment variables for a package.
 - `update.zsh` contains that package's upgrade scripts, which are run collectively via the `update` function in `./_zsh`.
+- `./_zsh` contains core shell config (theme, editor, options, helpers).
+- `./_zsh/env.zsh` is loaded by `dot-zshenv` only (environment-only config).
+- `./_session.zsh` runs last during shell startup (session behavior).
 
 ### Remote Execution:
 Use curl on a fresh install to execute this remote script.
@@ -48,11 +51,12 @@ Some things may support local configuration (i will try to keep this up to date)
   ```
 
 #### Notes:
-- Use `la` or `list-aliases` to print a list of all registered aliases. [Read More](https://unix.stackexchange.com/questions/292903/list-names-of-aliases-functions-and-variables-in-zsh)
+- Use `aliases` to print a list of all registered aliases. [Read More](https://unix.stackexchange.com/questions/292903/list-names-of-aliases-functions-and-variables-in-zsh)
 - `alias X` can be used to print out an alias. <br>
   E.g. `alias zshrc` will show `vim ~/.zshrc`. <br>
   Notably, all substitutions will be completed, allowing you to see the real effect of an aliased command in your current context.
-- Use `restart` to re-source all zsh dotfiles.
+- Use `restart` to re-source all zsh dotfiles (only if the files exist).
+- Zsh abbreviations are provided by `zsh-abbr` when installed; otherwise definitions fall back to aliases.
 
 ---
 ### Next Steps:
