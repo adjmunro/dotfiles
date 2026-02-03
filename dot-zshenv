@@ -1,27 +1,51 @@
 #!/usr/bin/env zsh
 
 # Get any local config
-source "$HOME/.zlocal"
+if [[ -f "$HOME/.zlocal" ]]; then
+    source "$HOME/.zlocal"
+fi
 
 # Export the location of symlinked dotfiles repository directory.
 export DOTFILES="$(dirname "$(realpath ${(%):-%N})")"
 
 # Function to source every file in an array (i.e. globbed path)
 function sources() {
-    if [[ "$1" == *'*'* ]]; then 
-        echo "Globbed nothing. $1"
-        echo "You might have accidentally quoted?"
-        return false
+    # Keeps options local to the function
+    emulate -L zsh
+
+    # Locally enable null globs as acceptable. 
+    # Alternatively can do *.zsh(N) at callsite
+    setopt null_glob
+
+    local verbose=false
+    if [[ "$1" == "-v" || "$1" == "--verbose" ]]; then
+        verbose=true
+        shift
     fi
 
-    for file in $@; do
-        echo "Source $file"
-        source $file
+    # Expand ~ and any globs
+    setopt extended_glob
+    local -a expanded
+    expanded=(${~@}) # ${~@} forces expansion
+
+    if (( ${#expanded} == 0 )); then 
+        if $verbose; then
+            echo "Globbed nothing."
+        fi
+        return 0
+    fi
+
+    for file in "${expanded[@]}"; do
+        if $verbose; then
+            echo "+ $file"
+        fi
+        source "$file"
     done
-    echo ""
+    if $verbose; then
+        echo ""
+    fi
 }
 
 # Glob & source environmental variables
-sources $DOTFILES/_zshenv/*.zsh
-sources $DOTFILES/*/env.zsh
-
+sources "$DOTFILES/_zshenv/*.zsh"
+sources "$DOTFILES/*/env.zsh"
