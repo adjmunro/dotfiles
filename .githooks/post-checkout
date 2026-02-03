@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Re-stow dotfiles after checkouts.
+if [[ -n "${STOW_SKIP_HOOK:-}" ]]; then
+  exit 0
+fi
+
+if ! command -v stow >/dev/null 2>&1; then
+  exit 0
+fi
+
+repo_root="$(git rev-parse --show-toplevel 2>/dev/null || true)"
+[[ -z "$repo_root" ]] && exit 0
+
+stow . --dir="$repo_root" --target="$HOME" --dotfiles --restow

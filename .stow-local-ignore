@@ -22,6 +22,7 @@ _darcs
 \.gitignore
 \.gitmodules
 \.jj
+\.githooks
 
 .*\.swp
 
@@ -29,6 +30,7 @@ _darcs
 \#.*\#       # emacs autosave files
 
 ^/README.*
+^/AGENTS\.md
 ^/LICENSE.*
 ^/COPYING
 \.DS_STORE
