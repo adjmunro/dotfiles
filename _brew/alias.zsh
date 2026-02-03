@@ -7,6 +7,8 @@
 # Check that homebrew is installed
 whence brew &>/dev/null || return false 
 
+alias brewing="brew ls --versions"
+
 
 function summon() {
   if [[ -z "$1" ]]; then
@@ -27,4 +29,3 @@ function summon() {
     echo "Aborted."
   fi
 }
-

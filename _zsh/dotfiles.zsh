@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # --------------------------------------------------------------------------- #
-#       [ZSH]   zsh/dotfiles   
+#       [ZSH]   zsh/dotfiles
 # --------------------------------------------------------------------------- #
 
 function dotfiles() {
@@ -30,7 +30,7 @@ function dotfiles() {
 # Always source for every invocation (login, interactive, & script)
 # Used for user-specific environment variables
 # !! Should be kept lean & fast!
-alias zenv="edit ~/.zshenv"
+alias zshenv="edit ~/.zshenv"
 
 # (-) Custom machine args (sourced by .zshenv)
 alias zlocal="edit ~/.zlocal"
@@ -60,6 +60,8 @@ alias zlogout="edit ~/.zlogout"
 #   Management
 # ------------------------------
 
-# Re-source zshenv & zshrc files
-alias reshell="source ~/.zshenv ~/.zshrc"
-
+# Re-source zshenv & zshrc files (only if present)
+function reshell() {
+    [[ -f ~/.zshenv ]] && source ~/.zshenv
+    [[ -f ~/.zshrc ]] && source ~/.zshrc
+}

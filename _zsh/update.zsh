@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # --------------------------------------------------------------------------- #
-#       [ZSH]   zsh/update   
+#       [ZSH]   zsh/update
 # --------------------------------------------------------------------------- #
 
 # Source all update files.
@@ -14,4 +14,3 @@ function update() {
 
     whence neofetch &>/dev/null && neofetch
 }
-

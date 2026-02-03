@@ -18,15 +18,20 @@ function sources() {
     setopt null_glob
 
     local verbose=false
-    if [[ "$1" == "-v" || "$1" == "--verbose" ]]; then
-        verbose=true
-        shift
-    fi
+    local -a patterns=()
+    local arg
+    for arg in "$@"; do
+        if [[ "$arg" == "-v" || "$arg" == "--verbose" ]]; then
+            verbose=true
+        else
+            patterns+=("$arg")
+        fi
+    done
 
     # Expand ~ and any globs
     setopt extended_glob
     local -a expanded
-    expanded=(${~@}) # ${~@} forces expansion
+    expanded=(${~patterns}) # ${~...} forces expansion
 
     if (( ${#expanded} == 0 )); then 
         if $verbose; then
@@ -47,5 +52,5 @@ function sources() {
 }
 
 # Glob & source environmental variables
-sources "$DOTFILES/_zshenv/*.zsh"
+sources ${DOTFILES}/_zsh/env.zsh(N)
 sources "$DOTFILES/*/env.zsh"

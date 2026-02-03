@@ -1,48 +1,16 @@
 #!/usr/bin/env zsh
 
-# Glob & source files in ./_zshrc directory
-sources $DOTFILES/_zshrc/*.zsh
+# Glob & source all init files (tool setup happens before aliases)
+sources "$DOTFILES/*/init.zsh"
 
-# Glob & source files all init files
-sources $DOTFILES/*/init.zsh
-
-###################
-### Zsh Aliases ###
-###################
-
-# temp - remove later when stable & one homebrew tap
-export PATH="/Users/adjmunro/Developer/zsh-worktree/main/bin:$PATH"
-
-# List Aliases, Functions, Parameters
-alias list-aliases="print -rl -- ${(k)aliases}"
-alias la="list-aliases"
-
-# Easy Config
-alias cghost="vim ~/.config/ghostty/local-config" # Ghostty Local Config
-alias restart="source ~/.zshenv; source ~/.zshrc; source ~/.zprofile; source ~/.zlogin"
-
-alias brewing="brew ls --versions"
-
-# Git Aliases
-local trunk="develop"
-alias fetch-trunk="git fetch origin $trunk:$trunk"
-alias restack-trunk="gt restack --branch $trunk"
-alias log-branches="gt log short --reverse --show-untracked"
-alias lb="log-branches"
-alias sync="fetch-trunk; restack-trunk; log-branches; prune-dirs"
-alias push-all="git push origin --all"
-alias retrack="gt untrack; gt track"
-function gitstub() { mkdir -p "$1"; touch "$1/gitstub" }
-
-# Other
-alias info="clear; neofetch; ll; log-branches"
-alias cls="printf \"\e[H\e[22J\""
+# Glob & source files in ./_zsh directory (exclude env.zsh; loaded by zshenv)
+sources "$DOTFILES/_zsh/!(env).zsh"
 
 # Glob & source all aliases
-sources $DOTFILES/*/alias.zsh
+sources "$DOTFILES/*/alias.zsh"
 
 # Glob & source all package activation scripts
-sources $DOTFILES/*/activate.zsh
+sources "$DOTFILES/*/activate.zsh"
 
 # Shell initialisation behaviour
-sources $DOTFILES/_init.zsh
+sources "$DOTFILES/_session.zsh"
