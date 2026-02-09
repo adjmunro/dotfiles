@@ -8,9 +8,9 @@
 whence gt &>/dev/null || return false
 
 # Branch helpers (uses trunk from _git/alias.zsh)
-alias restack="gt restack --branch $(trunk)"
-alias branches="gt log short --reverse --show-untracked"
-alias retrack="gt untrack; gt track"
+a restack="gt restack --branch $(trunk)"
+a branches="gt log short --reverse --show-untracked"
+a retrack="gt untrack; gt track"
 
 # Sync workflow (only runs steps that exist)
 function sync() {

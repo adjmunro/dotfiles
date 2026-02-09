@@ -8,5 +8,5 @@
 export EDITOR="vim"
 
 # Alias the default text editor
-alias edit='$EDITOR'    # Scripts (clarity)
-alias e='$EDITOR'       # Interactive shell
+a edit='$EDITOR'    # Scripts (clarity)
+a e='$EDITOR'       # Interactive shell

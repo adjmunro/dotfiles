@@ -5,7 +5,7 @@
 # --------------------------------------------------------------------------- #
 
 # List Aliases, Functions, Parameters
-alias aliases="print -rl -- ${(k)aliases}"
+a aliases="print -rl -- ${(k)aliases}"
 
 # Re-source zsh config files (only if present)
 function restart() {
@@ -16,11 +16,11 @@ function restart() {
 }
 
 # Redo previous command with sudo
-alias pls="sudo !!"
+a pls="sudo !!"
 
 # Navigate up directories
-alias ..="cd .."
-alias ...="cd ../.."
+a ..="cd .."
+a ...="cd ../.."
 
 # Make a new directory, and enter it.
 function mkcd() {
@@ -37,4 +37,9 @@ function info() {
     whence neofetch &>/dev/null && neofetch
     whence ll &>/dev/null && ll
     whence branches &>/dev/null && branches
+}
+
+# Clear all aliases from config.
+function unalias-all() {
+    unalias -m '*'
 }

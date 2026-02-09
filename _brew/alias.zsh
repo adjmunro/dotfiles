@@ -7,7 +7,7 @@
 # Check that homebrew is installed
 whence brew &>/dev/null || return false 
 
-alias brewing="brew ls --versions"
+a brewing="brew ls --versions"
 
 
 function summon() {

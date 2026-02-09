@@ -43,10 +43,10 @@ function gitignore() {
 }
 
 # List files affected by gitignore changes (i.e. already indexed)
-alias list-gitignore="git ls-files --cached --ignored --exclude-standard"
+a list-gitignore="git ls-files --cached --ignored --exclude-standard"
 
 # Untrack a file already indexed by git
-alias git-untrack-file="git rm -r --cached"
+a git-untrack-file="git rm -r --cached"
 
 # Untrack ignored files
 function untrack-gitignore() {
@@ -54,7 +54,7 @@ function untrack-gitignore() {
 }
 
 # Delete merged branches? TODO(verify!)
-alias rm-merged='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'
+a rm-merged='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'
 
 function fetch() {
     # No args: fetch trunk without checkout (origin trunk:trunk)
@@ -90,7 +90,7 @@ function fetch() {
     done
 }
 
-alias push-all="git push origin --all"
+a push-all="git push origin --all"
 
 function gitstub() {
     [[ -z "$1" ]] && return 1

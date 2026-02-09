@@ -18,3 +18,13 @@ if [[ "${ABBR_VERBOSE:-0}" == "1" ]]; then
 else
     ABBR_QUIET=1 ABBR_QUIETER=1 abbr --force --="cd -"
 fi
+
+# Clear all abbreviations for the current session.
+function abbr-clear() {
+    if [[ "${ABBR_VERBOSE:-0}" == "1" ]]; then
+        abbr clear-session
+    else
+        ABBR_QUIET=1 ABBR_QUIETER=1 abbr clear-session
+    fi
+}
+

@@ -29,7 +29,9 @@ function sources() {
     done
 
     # Expand ~ and any globs
-    setopt extended_glob
+    # extended_glob: enables ^, ~, # glob operators
+    # ksh_glob: enables !(pattern), @(pattern), etc. (ksh/bash extglob syntax)
+    setopt extended_glob ksh_glob
     local -a expanded
     expanded=(${~patterns}) # ${~...} forces expansion
 

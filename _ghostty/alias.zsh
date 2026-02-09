@@ -5,4 +5,4 @@
 # --------------------------------------------------------------------------- #
 
 # Edit Ghostty local config
-alias cghost="vim ~/.config/ghostty/local-config"
+a cghost="vim ~/.config/ghostty/local-config"
