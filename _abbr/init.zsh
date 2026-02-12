@@ -36,9 +36,9 @@ if [[ -n "$abbr_script" ]]; then
                 ABBR_QUIET=1 ABBR_QUIETER=1 abbr --force "$@"
             fi
         }
-    else
-        function a() {
-            alias "$@"
-        }
     fi
+else
+    function a() {
+         alias "$@"
+    }
 fi
