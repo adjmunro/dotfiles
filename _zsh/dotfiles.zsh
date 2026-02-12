@@ -6,7 +6,7 @@
 
 function dotfiles() {
     if (( $# == 0 )); then
-        edit $DOTFILES;
+        $EDITOR $DOTFILES;
         return true;
     fi;
 
@@ -30,31 +30,31 @@ function dotfiles() {
 # Always source for every invocation (login, interactive, & script)
 # Used for user-specific environment variables
 # !! Should be kept lean & fast!
-a zshenv="edit ~/.zshenv"
+a zshenv="$EDITOR ~/.zshenv"
 
 # (-) Custom machine args (sourced by .zshenv)
-a zlocal="edit ~/.zlocal"
+a zlocal="$EDITOR ~/.zlocal"
 
 # (2) Zsh Profile
 # Sourced for login shells after zshenv
 # Used for user-specific login shell configurations
-a zprofile="edit ~/.zprofile"
+a zprofile="$EDITOR ~/.zprofile"
 
 # (3) Zsh Resource Config
 # Sourced for interactive shells after zprofile
 # Used for user-specific interactive shell configurations
-a zshrc="edit ~/.zshrc"
+a zshrc="$EDITOR ~/.zshrc"
 
 # (4) Zsh Login
 # Sourced for login shells after all others
 # Used for user-specific login commands
-a zlogin="edit ~/.zlogin"
+a zlogin="$EDITOR ~/.zlogin"
 
 # (5) Zsh Logout
 # Sourced for login shells after the shell exists
 # Used for cleanup tasks
 # Sourced before /etc/zlogout
-a zlogout="edit ~/.zlogout"
+a zlogout="$EDITOR ~/.zlogout"
 
 # ------------------------------
 #   Management
