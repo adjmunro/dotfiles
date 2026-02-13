@@ -30,6 +30,10 @@ if [[ -n "$abbr_script" ]]; then
     if whence abbr &>/dev/null; then
         function a() {
             alias "$@"
+            # Skip adding abbreviations during restart to avoid job queue timeouts
+            # Abbreviations are already persisted to disk and will be auto-loaded
+            [[ -n "${_RESTART_IN_PROGRESS}" ]] && return 0
+
             if [[ "${ABBR_VERBOSE:-0}" == "1" ]]; then
                 abbr --force "$@"
             else

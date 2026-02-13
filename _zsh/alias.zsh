@@ -9,10 +9,16 @@ a aliases="print -rl -- ${(k)aliases}"
 
 # Re-source zsh config files (only if present)
 function restart() {
+    # Set flag to skip abbreviation re-adding during restart
+    export _RESTART_IN_PROGRESS=1
+
     [[ -f ~/.zshenv ]] && source ~/.zshenv
     [[ -f ~/.zprofile ]] && source ~/.zprofile
     [[ -f ~/.zshrc ]] && source ~/.zshrc
     [[ -f ~/.zlogin ]] && source ~/.zlogin
+
+    # Clear the flag
+    unset _RESTART_IN_PROGRESS
 }
 
 # Redo previous command with sudo
