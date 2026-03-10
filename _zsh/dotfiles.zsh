@@ -30,31 +30,31 @@ function dotfiles() {
 # Always source for every invocation (login, interactive, & script)
 # Used for user-specific environment variables
 # !! Should be kept lean & fast!
-a zshenv="$EDITOR ~/.zshenv"
+a zshenv="$EDITOR $DOTFILES/dot-zshenv"
 
 # (-) Custom machine args (sourced by .zshenv)
-a zlocal="$EDITOR ~/.zlocal"
+a zlocal="$EDITOR $DOTFILES/dot-zlocal"
 
 # (2) Zsh Profile
 # Sourced for login shells after zshenv
 # Used for user-specific login shell configurations
-a zprofile="$EDITOR ~/.zprofile"
+a zprofile="$EDITOR $DOTFILES/dot-zprofile"
 
 # (3) Zsh Resource Config
 # Sourced for interactive shells after zprofile
 # Used for user-specific interactive shell configurations
-a zshrc="$EDITOR ~/.zshrc"
+a zshrc="$EDITOR $DOTFILES/dot-zshrc"
 
 # (4) Zsh Login
 # Sourced for login shells after all others
 # Used for user-specific login commands
-a zlogin="$EDITOR ~/.zlogin"
+a zlogin="$EDITOR $DOTFILES/dot-zlogin"
 
 # (5) Zsh Logout
 # Sourced for login shells after the shell exists
 # Used for cleanup tasks
 # Sourced before /etc/zlogout
-a zlogout="$EDITOR ~/.zlogout"
+a zlogout="$EDITOR $DOTFILES/dot-zlogout"
 
 # ------------------------------
 #   Management
