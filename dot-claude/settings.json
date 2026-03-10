@@ -1,0 +1,56 @@
+{
+  "model": "sonnet",
+  "permissions": {
+    "allow": [
+      "Bash(* --version)",
+      "Bash(* --help)",
+      "Bash(* list:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(git checkout:*)",
+      "Bash(git stash:*)",
+      "Bash(git worktree:*)",
+      "Bash(echo:*)",
+      "Bash(cat:*)",
+      "Bash(ls:*)",
+      "Bash(open:*)",
+      "Bash(find:*)",
+      "Bash(fd:*)",
+      "Bash(fzf:*)",
+      "Bash(rg:*)",
+      "Bash(grep:*)",
+      "Bash(egrep:*)",
+      "Bash(fgrep:*)",
+      "Bash(pgrep:*)",
+      "Bash(ffmpeg:*)",
+      "Bash(./gradlew:*)",
+      "Bash(gt create:*)",
+      "Bash(gt commit create:*)",
+      "Bash(gt ls:*)",
+      "Bash(gh pr:*)",
+      "Bash(wrkflw validate:*)",
+      "Read(~/Developer/**)",
+      "WebFetch(domain:developer.android.com)",
+      "WebFetch(domain:docs.github.com)",
+      "WebFetch(domain:docs.gradle.org)",
+      "WebFetch(domain:jetbrains.com)",
+      "WebFetch(domain:kotlinlang.org)",
+      "WebSearch"
+    ],
+    "deny": [
+    ]
+  },
+  "enabledPlugins": {
+    "kotlin-lsp@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "swift-lsp@claude-plugins-official": true,
+    "github@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true
+  }
+}
