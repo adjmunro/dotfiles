@@ -9,16 +9,20 @@ a aliases="print -rl -- ${(k)aliases}"
 
 # Re-source zsh config files (only if present)
 function restart() {
-    # Set flag to skip abbreviation re-adding during restart
-    export _RESTART_IN_PROGRESS=1
+    # Clear session abbreviations but keep persisted ones
+    # This allows fresh reload without job queue timeout issues
+    whence abbr &>/dev/null && ABBR_QUIET=1 abbr clear-session 2>/dev/null
 
-    [[ -f ~/.zshenv ]] && source ~/.zshenv
-    [[ -f ~/.zprofile ]] && source ~/.zprofile
-    [[ -f ~/.zshrc ]] && source ~/.zshrc
-    [[ -f ~/.zlogin ]] && source ~/.zlogin
-
-    # Clear the flag
-    unset _RESTART_IN_PROGRESS
+    # Only source .zshrc which is usually sufficient for most changes
+    # Sourcing all files can be slow and is rarely necessary
+    if [[ -f ~/.zshrc ]]; then
+        source ~/.zshrc
+    else
+        # Fallback to sourcing all if .zshrc doesn't exist
+        [[ -f ~/.zshenv ]] && source ~/.zshenv
+        [[ -f ~/.zprofile ]] && source ~/.zprofile
+        [[ -f ~/.zlogin ]] && source ~/.zlogin
+    fi
 }
 
 # Redo previous command with sudo

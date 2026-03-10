@@ -8,9 +8,14 @@
 function update() {
     echo "----------------------------------"
     for f in $DOTFILES/*/update.zsh; do
-        source $f;
+        [[ "$f" == */_apple/update.zsh ]] && continue
+        source $f
         echo "----------------------------------"
-    done;
+    done
+
+    # Apple updates last — prompts for each available update
+    source $DOTFILES/_apple/update.zsh
+    echo "----------------------------------"
 
     whence neofetch &>/dev/null && neofetch
 }
