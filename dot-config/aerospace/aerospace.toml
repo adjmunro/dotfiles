@@ -271,7 +271,7 @@ on-mode-changed = []
 # dev tools
 [[on-window-detected]]
     if.app-id = 'com.DanPristupov.Fork'
-        run = 'move-node-to-workspace F' # mnemonics F - Fork
+        run = ['move-node-to-workspace F', 'layout accordion'] # mnemonics F - Fork
 [[on-window-detected]]
     if.app-id = 'com.figma.Desktop'
         run = 'move-node-to-workspace D' # mnemonics D - Design 
