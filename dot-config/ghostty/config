@@ -1,3 +1,6 @@
+###############################################################
+### Ghostty Shared Config! Use .ghostty-local for local-config 
+###############################################################
 # Font & Text
 font-size = 16
 cursor-invert-fg-bg = true
