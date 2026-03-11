@@ -4,6 +4,7 @@
       "Bash(* --version)",
       "Bash(* --help)",
       "Bash(* list:*)",
+
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git status:*)",
@@ -24,10 +25,11 @@
       "Bash(git shortlog:*)",
       "Bash(git blame:*)",
       "Bash(git grep:*)",
+      "Bash(git cherry:*)",
       "Bash(git checkout:*)",
       "Bash(git stash:*)",
       "Bash(git worktree:*)",
-      "Bash(stow:*)",
+
       "Bash(brew info:*)",
       "Bash(brew search:*)",
       "Bash(brew list:*)",
@@ -35,10 +37,26 @@
       "Bash(brew uses:*)",
       "Bash(brew outdated:*)",
       "Bash(brew leaves:*)",
+
+      "Bash(stow:*)",
+
       "Bash(echo:*)",
       "Bash(cat:*)",
+      "Bash(bat:*)",
+      "Bash(less:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+
+      "Bash(wc:*)",
+      "Bash(awk:*)",
+      "Bash(cut:*)",
+      "Bash(sort:*)",
+      "Bash(uniq:*)",
+      "Bash(diff:*)",
+      "Bash(jq:*)",
+
       "Bash(ls:*)",
-      "Bash(open:*)",
+      "Bash(eza:*)",
       "Bash(find:*)",
       "Bash(fd:*)",
       "Bash(fzf:*)",
@@ -47,14 +65,33 @@
       "Bash(egrep:*)",
       "Bash(fgrep:*)",
       "Bash(pgrep:*)",
+
       "Bash(ffmpeg:*)",
+
+      "Bash(open:*)",
+      "Bash(du:*)",
+      "Bash(pwd:*)",
+      "Bash(which:*)",
+      "Bash(date:*)",
+      "Bash(uname:*)",
+      "Bash(sw_vers:*)",
+      "Bash(ps:*)",
+      "Bash(realpath:*)",
+      "Bash(dirname:*)",
+      "Bash(basename:*)",
+
+      "Bash(adb:*)",
       "Bash(./gradlew:*)",
+
+      "Bash(just:*)",
       "Bash(gt create:*)",
       "Bash(gt commit create:*)",
       "Bash(gt ls:*)",
       "Bash(gh pr:*)",
       "Bash(wrkflw validate:*)",
+
       "Read(~/Developer/**)",
+
       "WebFetch(domain:developer.android.com)",
       "WebFetch(domain:docs.github.com)",
       "WebFetch(domain:docs.gradle.org)",
