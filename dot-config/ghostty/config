@@ -7,7 +7,7 @@ cursor-invert-fg-bg = true
 selection-invert-fg-bg = true
 
 # Theme
-theme = dark:"Earthsong", light:"00-SoftDark"
+theme = dark:"00-SoftDark", light:"Primary"
 
 # Window
 background-blur-radius = 20
