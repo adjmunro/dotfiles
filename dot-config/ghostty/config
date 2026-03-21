@@ -5,6 +5,7 @@
 font-size = 16
 cursor-invert-fg-bg = true
 selection-invert-fg-bg = true
+scroll-on-output = false
 
 # Theme
 theme = dark:"00-SoftDark", light:"02-PrimaryAccessible"
