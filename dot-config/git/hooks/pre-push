@@ -1,0 +1,155 @@
+#!/usr/bin/env zsh
+# pre-push: (1) scan pushed commits for sensitive data — blocks
+#           (2) sign unsigned commits by user.email via claude agent — warns
+# Bypass: git push --no-verify
+
+REMOTE="$1"
+AUTHOR_EMAIL=$(git config user.email)
+
+typeset -a PUSH_LINES=()
+while IFS= read -r line; do
+  [[ -n "$line" ]] && PUSH_LINES+=("$line")
+done
+[[ ${#PUSH_LINES[@]} -eq 0 ]] && exit 0
+
+# ── Find local parent branch (for new branches with no remote) ────────────────
+find_parent_branch() {
+  local current
+  current=$(git rev-parse --abbrev-ref HEAD)
+  git show-branch -a 2>/dev/null \
+    | grep '\*' \
+    | grep -v "\\[$current" \
+    | head -1 \
+    | sed 's/.*\[\(.*\)\].*/\1/' \
+    | sed 's/[\^~].*//' \
+    | grep -v '^$'
+}
+
+# ── Resolve push range: "base..tip" or "FAILED" ───────────────────────────────
+get_range() {
+  local local_sha="$1" remote_sha="$2"
+  local zeros='0000000000000000000000000000000000000000'
+  if [[ "$remote_sha" == "$zeros" ]]; then
+    local parent
+    parent=$(find_parent_branch)
+    if [[ -z "$parent" ]]; then
+      print "FAILED"
+      return
+    fi
+    local base
+    base=$(git merge-base "$local_sha" "$parent" 2>/dev/null)
+    [[ -z "$base" ]] && { print "FAILED"; return; }
+    print "${base}..${local_sha}"
+  else
+    print "${remote_sha}..${local_sha}"
+  fi
+}
+
+# ── Sensitive data patterns ───────────────────────────────────────────────────
+typeset -a PATTERNS=(
+  '-----BEGIN [A-Z ]+ PRIVATE KEY-----'
+  '02[1-9][ -]?[0-9]{3}[ -]?[0-9]{4}'
+  '0[89]00[ -]?[0-9]{3}[ -]?[0-9]{3}'
+  '\+64[ -]?2[1-9][ -]?[0-9]{3}[ -]?[0-9]{4}'
+  '[0-9]+[a-zA-Z]?[[:space:]]+(St|Rd|Ave|Lane|Dr|Pl|Cres|Tce|Way|Street|Road|Avenue|Drive|Place|Crescent|Terrace)\b'
+)
+EMAIL_PATTERN='[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}'
+NOREPLY_EXCLUDE='@users\.noreply\.github\.com'
+
+scan_content() {
+  local content="$1"
+  typeset -a hits=()
+  for pat in "${PATTERNS[@]}"; do
+    while IFS= read -r line; do
+      [[ -n "$line" ]] && hits+=("$line")
+    done < <(printf '%s\n' "$content" | grep -E "$pat" 2>/dev/null)
+  done
+  while IFS= read -r line; do
+    [[ -n "$line" ]] && hits+=("$line")
+  done < <(printf '%s\n' "$content" | grep -E "$EMAIL_PATTERN" | grep -v "$NOREPLY_EXCLUDE" 2>/dev/null)
+  (( ${#hits[@]} == 0 )) && return 0
+  print ''
+  print '  SENSITIVE DATA DETECTED in pushed commits:'
+  print ''
+  for h in "${hits[@]}"; do
+    print "  $h"
+  done
+  print ''
+  print '  To bypass: git push --no-verify'
+  print ''
+  return 1
+}
+
+# ── Main loop ─────────────────────────────────────────────────────────────────
+PHASE1_BLOCKED=0
+SIGN_NEEDED=0
+OLDEST_UNSIGNED=""
+typeset -a UNSIGNED_COMMITS=()
+
+for push_line in "${PUSH_LINES[@]}"; do
+  read -r local_ref local_sha remote_ref remote_sha <<< "$push_line"
+  [[ "$local_sha" == '0000000000000000000000000000000000000000' ]] && continue
+
+  range=$(get_range "$local_sha" "$remote_sha")
+  if [[ "$range" == "FAILED" ]]; then
+    print "pre-push: warning — could not determine range for $local_ref, skipping"
+    continue
+  fi
+
+  base="${range%%..*}"
+  tip="${range##*..}"
+
+  # Phase 1: scan each commit diff for sensitive data
+  while IFS= read -r sha; do
+    [[ -z "$sha" ]] && continue
+    diff=$(git show --unified=0 "$sha" | grep '^+' | grep -v '^+++')
+    scan_content "$diff" || PHASE1_BLOCKED=1
+  done < <(git log --format="%H" "$range")
+
+  # Phase 2: tighten base to most recent signed commit by author
+  while IFS='|' read -r sha ae sig; do
+    [[ "$ae" == "$AUTHOR_EMAIL" && "$sig" != "N" && -n "$sig" ]] && base="$sha"
+  done < <(git log --reverse --format="%H|%aE|%G?" "${base}..${tip}")
+
+  # Collect unsigned commits by author
+  while IFS='|' read -r sha ae sig; do
+    if [[ "$ae" == "$AUTHOR_EMAIL" && "$sig" == "N" ]]; then
+      UNSIGNED_COMMITS+=("$sha")
+      [[ -z "$OLDEST_UNSIGNED" ]] && OLDEST_UNSIGNED="$sha"
+      SIGN_NEEDED=1
+    fi
+  done < <(git log --reverse --format="%H|%aE|%G?" "${base}..${tip}")
+done
+
+# Block on sensitive data
+(( PHASE1_BLOCKED )) && exit 1
+
+# Nothing to sign
+(( SIGN_NEEDED == 0 )) && exit 0
+
+# Phase 2: sign via claude agent
+print "pre-push: ${#UNSIGNED_COMMITS[@]} unsigned commit(s) — signing via claude..."
+HEAD_BEFORE=$(git rev-parse HEAD)
+
+SIGN_BASE=$(git rev-parse "${OLDEST_UNSIGNED}^" 2>/dev/null)
+if [[ -z "$SIGN_BASE" ]]; then
+  print "pre-push: warning — could not find signing base, pushing unsigned"
+  exit 0
+fi
+
+RESULT=$(claude --dangerously-skip-permissions -p \
+  "Sign unsigned commits in this git repo. Run exactly: git rebase --exec 'if [ \"\$(git log -1 --format=%aE)\" = \"${AUTHOR_EMAIL}\" ]; then git commit --amend --no-edit -S; fi' ${SIGN_BASE}. Output only OK on success or FAILED: <reason> on failure." \
+  2>&1)
+
+HEAD_AFTER=$(git rev-parse HEAD)
+
+if [[ "$HEAD_BEFORE" != "$HEAD_AFTER" ]]; then
+  print "pre-push: commits signed — please push again"
+  exit 1
+fi
+
+if [[ "$RESULT" == *"FAILED"* ]]; then
+  print "pre-push: warning — signing failed, pushing unsigned"
+fi
+
+exit 0
