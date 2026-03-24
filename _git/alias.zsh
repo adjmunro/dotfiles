@@ -102,3 +102,7 @@ a co="git checkout"
 a br="git branch"
 a cm="git commit -m"
 a lg="git log --oneline --graph --decorate --all"
+
+# Open git configs in $EDITOR
+a .gitconfig="$EDITOR $DOTFILES/dot-gitconfig"
+a .gitlocal="$EDITOR ~/.gitconfig.local"
