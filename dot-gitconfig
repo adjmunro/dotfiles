@@ -1,0 +1,18 @@
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+[commit]
+	gpgsign = false
+[core]
+	hooksPath = ~/.config/git/hooks
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[credential "https://github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[include]
+	path = ~/.gitconfig.local
