@@ -34,5 +34,13 @@ ouroboros() {
   caffeinate -i claude --dangerously-skip-permissions "$@"
 }
 
+# Run claude under caffeinate (idle-sleep prevention, works on battery too).
+# Exits caffeinate automatically when the claude process ends.
+# Additional flags are passed through to claude.
+nightwatch() {
+  caffeinate -i claude "$@"
+}
+
+
 # Remove all CLAUDE.md symlinks
 alias rm-claude='find . -name "CLAUDE.md" -type l -delete'
