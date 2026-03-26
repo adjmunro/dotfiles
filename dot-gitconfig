@@ -2,6 +2,7 @@
 	format = ssh
 [gpg "ssh"]
 	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+	allowedSignersFile = ~/.config/git/allowed_signers
 [commit]
 	gpgsign = false
 [core]
@@ -9,10 +10,10 @@
 [url "git@github.com:"]
 	insteadOf = https://github.com/
 [credential "https://github.com"]
-	helper =
+	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
 [credential "https://gist.github.com"]
-	helper =
+	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
 [include]
 	path = ~/.gitconfig.local
