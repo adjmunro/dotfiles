@@ -4,7 +4,6 @@
       "Bash(* --version)",
       "Bash(* --help)",
       "Bash(* list:*)",
-
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git status:*)",
@@ -29,7 +28,6 @@
       "Bash(git checkout:*)",
       "Bash(git stash:*)",
       "Bash(git worktree:*)",
-
       "Bash(brew info:*)",
       "Bash(brew search:*)",
       "Bash(brew list:*)",
@@ -37,16 +35,13 @@
       "Bash(brew uses:*)",
       "Bash(brew outdated:*)",
       "Bash(brew leaves:*)",
-
       "Bash(stow:*)",
-
       "Bash(echo:*)",
       "Bash(cat:*)",
       "Bash(bat:*)",
       "Bash(less:*)",
       "Bash(head:*)",
       "Bash(tail:*)",
-
       "Bash(wc:*)",
       "Bash(awk:*)",
       "Bash(cut:*)",
@@ -54,7 +49,6 @@
       "Bash(uniq:*)",
       "Bash(diff:*)",
       "Bash(jq:*)",
-
       "Bash(ls:*)",
       "Bash(eza:*)",
       "Bash(find:*)",
@@ -65,9 +59,7 @@
       "Bash(egrep:*)",
       "Bash(fgrep:*)",
       "Bash(pgrep:*)",
-
       "Bash(ffmpeg:*)",
-
       "Bash(open:*)",
       "Bash(du:*)",
       "Bash(pwd:*)",
@@ -79,19 +71,15 @@
       "Bash(realpath:*)",
       "Bash(dirname:*)",
       "Bash(basename:*)",
-
       "Bash(adb:*)",
       "Bash(./gradlew:*)",
-
       "Bash(just:*)",
       "Bash(gt create:*)",
       "Bash(gt commit create:*)",
       "Bash(gt ls:*)",
       "Bash(gh pr:*)",
       "Bash(wrkflw validate:*)",
-
       "Read(~/Developer/**)",
-
       "WebFetch(domain:developer.android.com)",
       "WebFetch(domain:docs.github.com)",
       "WebFetch(domain:docs.gradle.org)",
