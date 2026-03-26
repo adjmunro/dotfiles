@@ -54,7 +54,7 @@ typeset -a PATTERNS=(
   '[0-9]+[a-zA-Z]?[[:space:]]+(St|Rd|Ave|Lane|Dr|Pl|Cres|Tce|Way|Street|Road|Avenue|Drive|Place|Crescent|Terrace)\b'
 )
 EMAIL_PATTERN='[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}'
-NOREPLY_EXCLUDE='@users\.noreply\.github\.com'
+NOREPLY_EXCLUDE='(noreply@|@.*\.noreply\.github\.com)'
 
 scan_content() {
   local content="$1"
@@ -66,7 +66,7 @@ scan_content() {
   done
   while IFS= read -r line; do
     [[ -n "$line" ]] && hits+=("$line")
-  done < <(printf '%s\n' "$content" | grep -E "$EMAIL_PATTERN" | grep -v "$NOREPLY_EXCLUDE" 2>/dev/null)
+  done < <(printf '%s\n' "$content" | grep -E "$EMAIL_PATTERN" | grep -vE "$NOREPLY_EXCLUDE" 2>/dev/null)
   (( ${#hits[@]} == 0 )) && return 0
   print ''
   print '  SENSITIVE DATA DETECTED in pushed commits:'
