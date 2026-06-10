@@ -6,6 +6,7 @@
 
 /_.*     # Ignore any directory prefixed with `_`
 _.*      # Ignore any files prefixed with `_`
+docs     # Ignore docs directory
 
 RCS
 .+,v
