@@ -5,15 +5,18 @@
 	allowedSignersFile = ~/.config/git/allowed_signers
 [commit]
 	gpgsign = false
+[push]
+    autoSetupRemote = true
 [core]
+    editor = vim
 	hooksPath = ~/.config/git/hooks
 [url "git@github.com:"]
 	insteadOf = https://github.com/
 [credential "https://github.com"]
-	helper = 
+	helper =
 	helper = !/opt/homebrew/bin/gh auth git-credential
 [credential "https://gist.github.com"]
-	helper = 
+	helper =
 	helper = !/opt/homebrew/bin/gh auth git-credential
 [include]
 	path = ~/.gitconfig.local
