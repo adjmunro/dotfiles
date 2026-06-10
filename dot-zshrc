@@ -1,16 +1,4 @@
 #!/usr/bin/env zsh
 
-# Glob & source all init files (tool setup happens before aliases)
-sources "$DOTFILES/*/init.zsh"
-
-# Glob & source files in ./_zsh directory (exclude env.zsh; loaded by zshenv)
-sources "$DOTFILES/_zsh/!(env).zsh"
-
-# Glob & source all aliases
-sources "$DOTFILES/*/alias.zsh"
-
-# Glob & source all package activation scripts
-sources "$DOTFILES/*/activate.zsh"
-
-# Shell initialisation behaviour
-sources "$DOTFILES/_session.zsh"
+# Source all zsh files for an interactive shell
+source-dir "_03_interactive"

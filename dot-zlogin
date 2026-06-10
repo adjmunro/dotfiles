@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+
+# Source all files for session config
+source-dir "_04_session"

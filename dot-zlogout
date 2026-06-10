@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+
+# Source all zsh files for a shell logout
+source-dir "_06_close"

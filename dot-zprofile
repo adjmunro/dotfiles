@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+
+# Source all zsh files for a login shell
+source-dir "_02_user"

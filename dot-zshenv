@@ -1,58 +1,20 @@
 #!/usr/bin/env zsh
 
-# Get any local config
-if [[ -f "$HOME/.zlocal" ]]; then
-    source "$HOME/.zlocal"
-fi
+# --------------------------------------------------------------------------- #
 
-# Export the location of symlinked dotfiles repository directory.
-export DOTFILES="$(dirname "$(realpath ${(%):-%N})")"
+# If unset, define location of symlinked dotfiles directory as a global [-g],
+# read-only [-r], and exported [-x] to child processes property. This cannot be
+# changed in the current session unless the shell session is restarted.
+(( ${+DOTFILES} )) || typeset -grx DOTFILES="$(dirname "$(realpath ${(%):-%N})")"
 
-# Function to source every file in an array (i.e. globbed path)
-function sources() {
-    # Keeps options local to the function
-    emulate -L zsh
+# --------------------------------------------------------------------------- #
 
-    # Locally enable null globs as acceptable. 
-    # Alternatively can do *.zsh(N) at callsite
-    setopt null_glob
+# Declare logger
+source "$DOTFILES/_00_bootstrap/logger.zsh"
+# export LOG_LEVEL=LOG_DEBUG
 
-    local verbose=false
-    local -a patterns=()
-    local arg
-    for arg in "$@"; do
-        if [[ "$arg" == "-v" || "$arg" == "--verbose" ]]; then
-            verbose=true
-        else
-            patterns+=("$arg")
-        fi
-    done
+# Declare source-dir
+source "$DOTFILES/_00_bootstrap/looper.zsh"
 
-    # Expand ~ and any globs
-    # extended_glob: enables ^, ~, # glob operators
-    # ksh_glob: enables !(pattern), @(pattern), etc. (ksh/bash extglob syntax)
-    setopt extended_glob ksh_glob
-    local -a expanded
-    expanded=(${~patterns}) # ${~...} forces expansion
-
-    if (( ${#expanded} == 0 )); then 
-        if $verbose; then
-            echo "Globbed nothing."
-        fi
-        return 0
-    fi
-
-    for file in "${expanded[@]}"; do
-        if $verbose; then
-            echo "+ $file"
-        fi
-        source "$file"
-    done
-    if $verbose; then
-        echo ""
-    fi
-}
-
-# Glob & source environmental variables
-sources ${DOTFILES}/_zsh/env.zsh(N)
-sources "$DOTFILES/*/env.zsh"
+# Source all zshenv files
+source-dir "_01_env"
