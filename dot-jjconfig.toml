@@ -1,0 +1,6 @@
+#:schema https://docs.jj-vcs.dev/latest/config-schema.json
+
+[user]
+name = ""  # Override in ~/.config/jj/.config.toml!
+email = "" # Override in ~/.config/jj/.config.toml!
+
