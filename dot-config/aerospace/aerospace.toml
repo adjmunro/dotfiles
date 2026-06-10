@@ -263,7 +263,7 @@ on-mode-changed = []
         run = 'move-node-to-workspace C' # mnemonics C - (T3)Code
 [[on-window-detected]]
     if.app-id = 'com.openai.codex'
-        run = 'move-node-to-workspace C' # mnemonics C - Codex
+        run = ['move-node-to-workspace C', 'layout tiling'] # mnemonics C - Codex
 [[on-window-detected]]
     if.app-id = 'com.anthropic.claudefordesktop'
         run = 'move-node-to-workspace C' # mnemonics C - Claude
