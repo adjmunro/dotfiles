@@ -38,6 +38,24 @@ quick-terminal-size = 80%, 80%
 # Keybindings
 keybind = global:command+escape=toggle_quick_terminal
 
+# Keep macOS-style line navigation and selection working inside Zsh.
+keybind = home=csi:H
+keybind = end=csi:F
+keybind = opt+delete=csi:3;3~
+keybind = command+delete=csi:3;9~
+keybind = command+left=csi:1;9D
+keybind = command+right=csi:1;9C
+keybind = shift+left=csi:1;2D
+keybind = shift+right=csi:1;2C
+keybind = shift+home=csi:1;2H
+keybind = shift+end=csi:1;2F
+keybind = shift+up=csi:1;2A
+keybind = shift+down=csi:1;2B
+keybind = shift+enter=esc:\r
+keybind = shift+opt+left=csi:1;4D
+keybind = shift+opt+right=csi:1;4C
+keybind = shift+command+left=csi:1;10D
+keybind = shift+command+right=csi:1;10C
+
 # Other Config Files
 config-file = ?./local-config
-
