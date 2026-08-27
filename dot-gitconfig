@@ -20,3 +20,96 @@
 	helper = !/opt/homebrew/bin/gh auth git-credential
 [include]
 	path = ~/.gitconfig.local
+[branch]
+	autoSetupMerge = false
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Conflict resolution & rebasing
+# Added 2026-07-21. Tuned for agent/LLM-assisted rebasing and the atomic-commit
+# workflow in ~/.claude/CLAUDE.md (fold fixes into offending commits, keep
+# topological changes separate, preserve intent across conflicts).
+# ─────────────────────────────────────────────────────────────────────────────
+
+[rerere]
+	# "Reuse Recorded Resolution" — records how a conflict was resolved and
+	# replays it automatically when the identical conflict recurs.
+	#
+	# DELIBERATELY DISABLED (2026-07-21). Rationale: this config is used across
+	# many independent Claude Code sessions. A fresh agent doesn't know rerere is
+	# on, so it won't run `git rerere status`, and with autoUpdate the replayed
+	# resolution is pre-staged — the "conflict" never surfaces and the agent can
+	# `git rebase --continue` over a STALE resolution without ever reviewing it.
+	# Detection is the weak link; the only signal is a single stderr line
+	# ("Resolved '<path>' using previous resolution").
+	#
+	# The upside — not re-typing a resolution — is a human-fatigue optimisation
+	# an LLM doesn't need; re-resolving from scratch actually re-examines the
+	# merge base each time, which is what the /rebase workflow wants anyway.
+	#
+	# To recover if it ever gets re-enabled and replays a wrong resolution:
+	#   git rerere forget <path>
+	#   git checkout --conflict=zdiff3 -- <path>   # restore the real markers
+	#
+	# Middle ground if you want the assist back WITH a review checkpoint: set
+	# `enabled = true` but leave autoUpdate off — resolutions are pre-filled but
+	# left UNSTAGED, so `git status` still shows the path unmerged and forces a
+	# `git add` (a mandatory review point) before continuing.
+	enabled = false
+
+[merge]
+	# Conflict marker style. zdiff3 (git 2.35+) adds a third section between
+	# ||||||| and ======= showing the COMMON ANCESTOR (merge base) of the two
+	# sides, and hoists shared context out of the conflict region. Seeing the
+	# base is what lets both a human and an LLM reconstruct the intent of each
+	# side rather than guessing — the core requirement of the /rebase workflow.
+	# Trade-off: markers are longer/noisier by eye (irrelevant to tooling).
+	conflictStyle = zdiff3
+	# On merge, if one side renamed a directory, add new files created on the
+	# other side into the renamed directory instead of leaving them at the old
+	# path. Reduces spurious conflicts when file/dir moves (topological commits)
+	# meet behavioural changes.
+	directoryRenames = true
+
+[rebase]
+	# When rebasing, automatically advance any OTHER local branch refs that point
+	# at commits being rebased (stacked/dependent branches), instead of stranding
+	# them on the pre-rebase commits. Matches the "same-named remote per branch"
+	# stacked-branch discipline. (git 2.55 fixed a HEAD-movement bug here.)
+	updateRefs = true
+	# Treat `fixup!`/`squash!` commits as squash instructions automatically, so
+	# `git rebase -i` behaves as if --autosquash were always passed. Pairs with
+	# `git commit --fixup=<sha>` for folding fixes into earlier commits.
+	# (Note: the new non-interactive `git history fixup <sha>` is often better.)
+	autoSquash = true
+	# If the working tree is dirty when a rebase starts, stash the changes, run
+	# the rebase, then reapply — instead of refusing with "cannot rebase: you
+	# have unstaged changes." Saves a manual stash/pop dance.
+	autoStash = true
+	# Safety rail: if an interactive-rebase todo list drops a commit that was
+	# present (e.g. an accidentally deleted line), abort with an error rather
+	# than silently discarding the commit. Important guardrail when a todo list
+	# is edited programmatically.
+	missingCommitsCheck = error
+
+[diff]
+	# Histogram diff produces more semantically stable, human-meaningful hunks
+	# than the default Myers algorithm — especially around moved/duplicated
+	# lines and reordered blocks. More stable hunks => cleaner rebases and fewer
+	# false conflicts. Low cost on normal-sized diffs.
+	algorithm = histogram
+	# Colour lines that were MOVED within a diff differently from genuinely
+	# added/removed lines, so a pure code move reads as a move rather than a
+	# delete+add. Directly supports the "isolate code moves from behavioural
+	# change" review rule. ("default" = zebra, only detects non-trivial moves.)
+	colorMoved = default
+
+[fetch]
+	# Automatically prune remote-tracking refs (origin/*) that no longer exist
+	# on the remote whenever you fetch. Keeps `git branch -r` honest after
+	# upstream branches are merged/deleted; avoids acting on stale refs.
+	prune = true
+
+[column]
+	# Let Git lay out list output (branches, tags, status hints, etc.) in columns
+	# when writing to a terminal, and fall back to one-per-line when piped.
+	ui = auto
