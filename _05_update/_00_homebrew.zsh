@@ -13,8 +13,12 @@ info "=== Update Homebrew Packages ===\n"
 brew update
 
 # Update out-of-date packages
-# Greedy is used to forcefully update self-updating casks
-brew upgrade --greedy
+if read -q "choice?Force update? [y/N] "; then
+    # Greedy is used to forcefully update self-updating casks
+    brew upgrade --greedy
+else
+    brew upgrade
+fi
 
 # Remove old files & cache
 brew cleanup
