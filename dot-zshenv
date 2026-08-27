@@ -11,7 +11,7 @@
 
 # Declare logger
 source "$DOTFILES/_00_bootstrap/logger.zsh"
-# export LOG_LEVEL=LOG_DEBUG
+export LOG_LEVEL=LOG_ERROR
 
 # Declare source-dir
 source "$DOTFILES/_00_bootstrap/looper.zsh"

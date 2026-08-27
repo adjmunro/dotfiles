@@ -32,8 +32,8 @@ function colour() {
     printf '%b'"$fmt"'%b' "$color" "$@" "$reset_color"
 }
 
-function error() { (( ${LOG_LEVEL:-0} >= LOG_ERROR )) && colour "$fg_bold[red]" $@ }
-function warn() { (( ${LOG_LEVEL:-0} >= LOG_WARN )) && colour "$fg[yellow]" $@ }
+function error() { (( ${LOG_LEVEL:-0} >= LOG_ERROR )) && colour >&2 "$fg_bold[red]" $@ }
+function warn() { (( ${LOG_LEVEL:-0} >= LOG_WARN )) && colour >&2 "$fg[yellow]" $@ }
 function info() { (( ${LOG_LEVEL:-0} >= LOG_INFO )) && colour "$fg[green]" $@ }
 function debug() { (( ${LOG_LEVEL:-0} >= LOG_DEBUG )) && colour "$fg[white]" $@ }
 function verbose() { (( ${LOG_LEVEL:-0} >= LOG_VERBOSE )) && colour "$fg[black]" $@ }
