@@ -29,6 +29,10 @@ function trunk() {
     print "${TRUNK_BRANCH}"
 }
 
+function gitInsideRepo() { git rev-parse --is-inside-work-tree }
+function gitBranchName() { git rev-parse --abbrev-ref HEAD }
+function gitRepoRoot() { git rev-parse --show-toplevel }
+
 function gitignore() {
     (( $# == 0 )) && return false
     mkdir -p /tmp/gitignore
