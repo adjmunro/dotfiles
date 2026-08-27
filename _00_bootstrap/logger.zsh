@@ -38,7 +38,7 @@ function info() { (( ${LOG_LEVEL:-0} >= LOG_INFO )) && colour "$fg[green]" $@ }
 function debug() { (( ${LOG_LEVEL:-0} >= LOG_DEBUG )) && colour "$fg[white]" $@ }
 function verbose() { (( ${LOG_LEVEL:-0} >= LOG_VERBOSE )) && colour "$fg[black]" $@ }
 
-function sample_colours() {
+function colours() {
     for c in ${(k)fg}; do
     printf '%b%-12s%b' "$fg[$c]" "fg $c" "$reset_color"
     printf '%b%-12s%b' "$fg_bold[$c]" "bold $c" "$reset_color"

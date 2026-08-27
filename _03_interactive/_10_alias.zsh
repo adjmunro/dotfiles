@@ -9,12 +9,8 @@ a aliases="print -rl -- ${(k)aliases}"
 
 # Re-source zsh config files (only if present)
 function restart() {
-    # Clear session abbreviations but keep persisted ones
-    # This allows fresh reload without job queue timeout issues
-    whence abbr &>/dev/null && ABBR_QUIET=1 abbr clear-session 2>/dev/null
-
-    # Only source .zshrc which is usually sufficient for most changes
-    # Sourcing all files can be slow and is rarely necessary
+    # Only source .zshrc which is usually sufficient for most changes.
+    # Use realias for a destructive alias/function rebuild.
     if [[ -f ~/.zshrc ]]; then
         source ~/.zshrc
     else
@@ -25,12 +21,9 @@ function restart() {
     fi
 }
 
+
 # Redo previous command with sudo
 a pls="sudo !!"
-
-# Navigate up directories
-a ..="cd .."
-a ...="cd ../.."
 
 # Make a new directory, and enter it.
 function mkcd() {
@@ -47,9 +40,4 @@ function about() {
     $SYS_INFO
     whence ll &>/dev/null && ll
     whence branches &>/dev/null && branches
-}
-
-# Clear all aliases from config.
-function unalias-all() {
-    unalias -m '*'
 }

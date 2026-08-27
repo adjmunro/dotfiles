@@ -6,6 +6,8 @@ autoload -U compinit && compinit
 # Check that Zoxide is installed.
 installed zoxide || return $SKIP_DOTFILE
 
+# --------------------------------------------------------------------------- #
+
 # Initialise Zoxide for Zsh
 eval "$(zoxide init zsh)"
 

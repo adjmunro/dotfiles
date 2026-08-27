@@ -10,10 +10,10 @@ whence cls &>/dev/null && cls
 $SYS_INFO
 
 # Printout of custom environment args
-print "Local Config:"
-print "  machine  = $MACHINE"
+colour "$fg_bold[white]" "Local Config:\n"
 print "  dotfiles = $DOTFILES"
-print "  project  = $PROJECT"
+print "  machine  = $MACHINE"
+
 
 # If we're inside a git repo, show the trunk branch.
 if whence git &>/dev/null && git rev-parse --is-inside-work-tree &>/dev/null; then
@@ -21,3 +21,6 @@ if whence git &>/dev/null && git rev-parse --is-inside-work-tree &>/dev/null; th
         print "  trunk    = $(trunk)"
     fi
 fi
+
+# As my final act, tone down the logging.
+export LOG_LEVEL=LOG_WARN

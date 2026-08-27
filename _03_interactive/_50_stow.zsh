@@ -15,5 +15,5 @@ installed stow || return $SKIP_DOTFILE
 # --no-folding      symlink only leaf-nodes (files, not directories) & create intermediates
 # --restow          unstow existing symlinks, then stow it again anew
 a restow="stow . --dir=$DOTFILES --target=$HOME --dotfiles --no-folding --restow"
-a nostow="restow --simulate --verbose=0"
+a nostow="restow --simulate --verbose=1"
 a unstow="stow --dir=$DOTFILES --target=$HOME --dotfiles --delete ."

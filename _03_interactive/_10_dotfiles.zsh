@@ -1,26 +1,6 @@
 #!/usr/bin/env zsh
 
 # --------------------------------------------------------------------------- #
-#       [ZSH]   zsh/dotfiles
-# --------------------------------------------------------------------------- #
-
-function dotfiles() {
-    if (( $# == 0 )); then
-        $EDITOR $DOTFILES;
-        return true;
-    fi;
-
-
-    local sub=$1
-    if [[ $sub = "sync" ]]; then
-        whence git &>/dev/null || return $(err "Git not installed!")
-        git --git-dir="$DOTFILES" fetch origin main:main
-    fi
-}
-
-# ------------------------------
-#   Zsh Configuration Files
-# ------------------------------
 
 # Note: there are also dotless, system-wide variants in /etc.
 # These system-wide variants are always run *before* their user-specific
@@ -56,13 +36,20 @@ a zlogin="$EDITOR $DOTFILES/dot-zlogin"
 # Sourced before /etc/zlogout
 a zlogout="$EDITOR $DOTFILES/dot-zlogout"
 
-# ------------------------------
-#   Management
-# ------------------------------
+# --------------------------------------------------------------------------- #
 
-# Re-source zshenv & zshrc files (only if present)
-function reshell() {
-    if installed cls; then cls; fi
-    [[ -f ~/.zshenv ]] && source ~/.zshenv
-    [[ -f ~/.zshrc ]] && source ~/.zshrc
+function dotfiles() {
+    # No args => open file browser for dotfiles repo.
+    if (( $# == 0 )); then
+        $NAVIGATOR $DOTFILES;
+        return true;
+    fi;
+
+
+    # If the first arg is "sync" fetch the git repo.
+    local sub=$1
+    if [[ $sub = "sync" ]]; then
+        whence git &>/dev/null || return $(err "Git not installed!")
+        git --git-dir="$DOTFILES" fetch origin main:main
+    fi
 }
