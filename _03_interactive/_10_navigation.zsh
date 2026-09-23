@@ -13,3 +13,6 @@ a ..="cd .."
 
 # Navigate up to grandparent directory
 a ...="cd ../.."
+
+# Open the home dir in the default navigator
+a home="$NAVIGATOR $HOME"
