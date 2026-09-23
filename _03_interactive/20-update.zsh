@@ -6,10 +6,10 @@
 
 # Source all update files.
 function update() {
-    print  "----------------------------------"
+    print -- "----------------------------------"
     for f in $DOTFILES/_05_update/*.zsh; do
         source $f
-        print  "----------------------------------"
+        print -- "----------------------------------"
     done
 
     $SYS_INFO
