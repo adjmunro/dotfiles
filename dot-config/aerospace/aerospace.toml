@@ -74,7 +74,7 @@ on-mode-changed = []
     inner.horizontal = 16
     inner.vertical =   16
     outer.left =       16
-    outer.bottom =     16
+    outer.bottom =     [{ monitor."^DELL U2717D$" = 140 }, 16]
     outer.top =        12
     outer.right =      16
 

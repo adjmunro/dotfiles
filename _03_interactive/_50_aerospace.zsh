@@ -9,6 +9,83 @@ installed aerospace || return $SKIP_DOTFILE
 
 a .aerospace="$EDITOR $DOTFILES/dot-config/aerospace/aerospace.toml"
 
+# Set (or clear) one outer gap for the focused monitor only; every other
+# monitor keeps the config's default. Useful for a display whose edge is
+# physically hidden, e.g. behind the laptop screen.
+#   aerogap <n|e|s|w> <px>   override that side's gap on this monitor
+#   aerogap <n|e|s|w>        remove this monitor's override
+# AeroSpace can't change gaps at runtime, so this rewrites the config in
+# $DOTFILES (not the stowed symlink) and reloads it.
+aerogap() {
+  setopt local_options extended_glob
+  local config="$DOTFILES/dot-config/aerospace/aerospace.toml"
+  local usage='usage: aerogap <n|e|s|w> [px]\n'
+
+  # Map compass point onto AeroSpace's outer gap key
+  local key
+  case "$1" in
+    n|top)    key=top ;;
+    e|right)  key=right ;;
+    s|bottom) key=bottom ;;
+    w|left)   key=left ;;
+    *) error "$usage"; return 1 ;;
+  esac
+  local px="$2"
+  [[ -z "$px" || "$px" == <-> ]] || { error "$usage"; return 1 }
+
+  local monitor
+  monitor="$(aerospace list-monitors --focused --format '%{monitor-name}')" || return 1
+
+  # AeroSpace matches monitor keys as case-insensitive regex substrings, so
+  # anchor and escape the name (then escape again for a TOML string) to stop
+  # e.g. "DELL" also matching "DELL U2717D"
+  local meta='[][\\^$.|?*+(){}]'
+  local pattern="^${monitor//(#m)$~meta/\\$MATCH}\$"
+  pattern="${${pattern//\\/\\\\}//\"/\\\"}"
+  local monitor_key="monitor.\"$pattern\""
+
+  # Find the single `outer.<key> = ...` line
+  local -a lines=("${(@f)$(<$config)}")
+  local i idx prefix value
+  for i in {1..$#lines}; do
+    [[ "$lines[i]" =~ "^([[:space:]]*outer\.${key}[[:space:]]*=[[:space:]]*)(.*)$" ]] || continue
+    (( idx )) && { error '%s\n' "Multiple outer.$key lines in $config"; return 1 }
+    idx=$i prefix="$match[1]" value="$match[2]"
+  done
+  (( idx )) || { error '%s\n' "No outer.$key line in $config"; return 1 }
+
+  # Value is either a plain default (`16`) or per-monitor overrides followed
+  # by the default (`[{ monitor."x" = 300 }, 16]`)
+  local default body
+  local -a entries
+  if [[ "$value" =~ '^([0-9]+)[[:space:]]*$' ]]; then
+    default="$match[1]"
+  elif [[ "$value" =~ '^\[(.*),[[:space:]]*([0-9]+)[[:space:]]*\][[:space:]]*$' ]]; then
+    body="$match[1]" default="$match[2]"
+    while [[ "$body" =~ '\{[^}]*\}' ]]; do
+      entries+=("$MATCH")
+      body="${body#*"$MATCH"}"
+    done
+  else
+    error '%s\n' "Can't parse outer.$key value: $value"
+    return 1
+  fi
+
+  # Drop this monitor's existing override, then add the new one (if any)
+  entries=("${(@)entries:#*"$monitor_key"*}")
+  [[ -n "$px" ]] && entries+=("{ $monitor_key = $px }")
+
+  if (( $#entries )); then
+    lines[idx]="${prefix}[${(j:, :)entries}, $default]"
+  else
+    lines[idx]="$prefix$default"
+  fi
+  print -rl -- "${lines[@]}" >| "$config"
+
+  aerospace reload-config || return 1
+  print -r -- "outer.$key on $monitor: ${px:-$default (default)}"
+}
+
 # Quick reference for aerospace key bindings
 tileguide() {
   # Try multiple config locations
