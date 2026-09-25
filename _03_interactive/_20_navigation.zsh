@@ -14,5 +14,10 @@ a ..="cd .."
 # Navigate up to grandparent directory
 a ...="cd ../.."
 
-# Open the home dir in the default navigator
+# Open key directories in the default navigator
 a home="$NAVIGATOR $HOME"
+a downloads="$NAVIGATOR $HOME/Downloads"
+a desktop="$NAVIGATOR $HOME/Desktop"
+a docs="$NAVIGATOR $HOME/Documents"
+a pics="$NAVIGATOR $HOME/Pictures"
+a dev="$NAVIGATOR $HOME/Developer"
