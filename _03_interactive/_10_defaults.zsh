@@ -26,8 +26,9 @@ a v='$VIEW'                 # Shorthand
 # Default "list directory contents"
 export LIST_DIRECTORY=(command ls)
 a list='$LIST_DIRECTORY'    # Clarity
-a ls='$LIST_DIRECTORY'      # Shorthand
-a ll='command ls'           # Fallback
+
+# Don't replace 'ls' -- it confuses the agents.
+a ll='$LIST_DIRECTORY'      # Shorthand
 a lh='command ls -ACFG'     # Vertical Fallback
 a lv='command ls -ohGAF'    # Horizontal Fallback
 
