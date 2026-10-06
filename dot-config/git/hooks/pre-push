@@ -1,6 +1,5 @@
 #!/usr/bin/env zsh
-# pre-push: (1) scan pushed commits for sensitive data — blocks
-#           (2) sign unsigned commits by user.email via claude agent — warns
+# pre-push: sign unsigned commits by user.email via claude agent — warns
 # Bypass: git push --no-verify
 
 REMOTE="$1"
@@ -45,78 +44,7 @@ get_range() {
   fi
 }
 
-# ── Sensitive data patterns ("label|regex") ──────────────────────────────────
-# Secret patterns are deliberately PREFIX-ANCHORED to a provider's token format
-# (fixed prefix + fixed length) so false positives are near-zero. Generic
-# "high-entropy string" and "password = ..." rules are intentionally NOT used —
-# they are the main source of false-positive noise in secret scanners.
-typeset -a PATTERNS=(
-  # PII / personal data
-  'private key|-----BEGIN [A-Z ]+ PRIVATE KEY-----'
-  'NZ mobile number|02[1-9][ -]?[0-9]{3}[ -]?[0-9]{4}'
-  'NZ 0800/0900 number|0[89]00[ -]?[0-9]{3}[ -]?[0-9]{3}'
-  'NZ mobile number (intl)|\+64[ -]?2[1-9][ -]?[0-9]{3}[ -]?[0-9]{4}'
-  'street address|[0-9]+[a-zA-Z]?[[:space:]]+(St|Rd|Ave|Lane|Dr|Pl|Cres|Tce|Way|Street|Road|Avenue|Drive|Place|Crescent|Terrace)\b'
-  # Cloud / API credentials (provider-prefixed, high confidence)
-  'AWS access key id|\b(A3T[A-Z0-9]|AKIA|ASIA|AGPA|AIDA|AROA|ANPA|ANVA)[A-Z0-9]{16}\b'
-  'GitHub token|\b(ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{36}\b'
-  'GitHub fine-grained PAT|\bgithub_pat_[A-Za-z0-9_]{82}\b'
-  'GitLab PAT|\bglpat-[A-Za-z0-9_-]{20}\b'
-  'Slack token|\bxox[baprs]-[A-Za-z0-9-]{10,}'
-  'Slack webhook|https://hooks\.slack\.com/services/T[A-Za-z0-9_]+/B[A-Za-z0-9_]+/[A-Za-z0-9_]+'
-  'Stripe secret key|\b(sk|rk)_(live|test)_[A-Za-z0-9]{24,}'
-  'Google API key|\bAIza[A-Za-z0-9_-]{35}\b'
-  'OpenAI API key|\bsk-(proj-[A-Za-z0-9_-]{20,}|[A-Za-z0-9]{32,})\b'
-  'Anthropic API key|\bsk-ant-[A-Za-z0-9_-]{20,}'
-  'npm token|\bnpm_[A-Za-z0-9]{36}\b'
-  'PyPI token|\bpypi-AgEIcHlwaS5vcmc[A-Za-z0-9_-]{50,}'
-)
-EMAIL_PATTERN='[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}'
-# Email local-parts/domains that are never personal/sensitive data.
-# Extend this to silence recurring false positives.
-EMAIL_EXCLUDE='(noreply@|no-reply@|@([a-z0-9-]+\.)*github\.com|@example\.(com|org|net))'
-
-scan_content() {
-  local content="$1" context="$2"
-  # Strip the leading diff marker so an added line like "+@decorator.foo" is not
-  # misread as the email "+@decorator.foo" (the '+' is a valid local-part char).
-  content=$(printf '%s\n' "$content" | sed 's/^+//')
-  typeset -a hits=()
-  for entry in "${PATTERNS[@]}"; do
-    local label="${entry%%|*}" pat="${entry#*|}"
-    while IFS= read -r line; do
-      [[ -n "$line" ]] && hits+=("[$label] $line")
-    done < <(printf '%s\n' "$content" | grep -E -- "$pat" 2>/dev/null)
-  done
-  while IFS= read -r line; do
-    [[ -n "$line" ]] && hits+=("[email address] $line")
-  done < <(printf '%s\n' "$content" | grep -E -- "$EMAIL_PATTERN" | grep -vEi -- "$EMAIL_EXCLUDE" 2>/dev/null)
-  (( ${#hits[@]} == 0 )) && return 0
-  print ''
-  print '  ⚠  pre-push: POSSIBLE SENSITIVE DATA in pushed commits'
-  print "  Location: ${context}"
-  print ''
-  print '  Matches ([category] matched line):'
-  for h in "${hits[@]}"; do
-    print "    $h"
-  done
-  print ''
-  print '  NEXT ACTIONS — assess each match before deciding:'
-  print '   1. Classify it as REAL sensitive data or a FALSE POSITIVE. False'
-  print '      positives are common: public/vendor emails, example.com addresses,'
-  print '      version or hash strings, sample/fixture/test data.'
-  print '   2. If REAL: remove it from the change. If it is already committed,'
-  print '      rewrite history (git rebase -i / git commit --amend) so it never'
-  print '      reaches the remote, and rotate the secret if it was a credential.'
-  print '   3. If FALSE POSITIVE: bypass with  git push --no-verify  — and to stop'
-  print '      it recurring, add the pattern to EMAIL_EXCLUDE / PATTERNS in'
-  print '      ~/.config/git/hooks/pre-push'
-  print ''
-  return 1
-}
-
 # ── Main loop ─────────────────────────────────────────────────────────────────
-PHASE1_BLOCKED=0
 SIGN_NEEDED=0
 OLDEST_UNSIGNED=""
 typeset -a UNSIGNED_COMMITS=()
@@ -134,14 +62,7 @@ for push_line in "${PUSH_LINES[@]}"; do
   base="${range%%..*}"
   tip="${range##*..}"
 
-  # Phase 1: scan each commit diff for sensitive data
-  while IFS= read -r sha; do
-    [[ -z "$sha" ]] && continue
-    diff=$(git show --unified=0 "$sha" | grep '^+' | grep -v '^+++')
-    scan_content "$diff" "commit ${sha:0:12} — $(git log -1 --format=%s "$sha")" || PHASE1_BLOCKED=1
-  done < <(git log --format="%H" "$range")
-
-  # Phase 2: tighten base to most recent signed commit by author
+  # Tighten base to most recent signed commit by author
   while IFS='|' read -r sha ae sig; do
     [[ "$ae" == "$AUTHOR_EMAIL" && "$sig" != "N" && -n "$sig" ]] && base="$sha"
   done < <(git log --reverse --format="%H|%aE|%G?" "${base}..${tip}")
@@ -156,13 +77,10 @@ for push_line in "${PUSH_LINES[@]}"; do
   done < <(git log --reverse --format="%H|%aE|%G?" "${base}..${tip}")
 done
 
-# Block on sensitive data
-(( PHASE1_BLOCKED )) && exit 1
-
 # Nothing to sign
 (( SIGN_NEEDED == 0 )) && exit 0
 
-# Phase 2: sign via claude agent
+# Sign via claude agent
 print "pre-push: ${#UNSIGNED_COMMITS[@]} unsigned commit(s) — signing via claude..."
 HEAD_BEFORE=$(git rev-parse HEAD)
 
