@@ -243,6 +243,12 @@ on-mode-changed = []
     if.app-id = 'com.mitchellh.ghostty'
         run = 'move-node-to-workspace T' # mnemonics T - Terminal
 
+# ghostrealm runs as a bare cargo binary, so it has no bundle id (NULL-APP-BUNDLE-ID);
+# match on its process name instead until it ships as a .app bundle
+[[on-window-detected]]
+    if.app-name-regex-substring = '^ghostrealm$'
+        run = 'move-node-to-workspace E' # ghostrealm
+
 # ide(s)
 [[on-window-detected]]
     if.app-id = 'com.google.android.studio'
