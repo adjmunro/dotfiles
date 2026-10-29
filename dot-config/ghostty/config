@@ -36,7 +36,7 @@ quick-terminal-size = 80%, 80%
 
 
 # Keybindings
-keybind = global:command+escape=toggle_quick_terminal
+keybind = global:command+grave_accent=toggle_quick_terminal
 
 # Keep macOS-style line navigation and selection working inside Zsh.
 keybind = home=csi:H
