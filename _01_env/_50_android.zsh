@@ -3,7 +3,7 @@
 # --------------------------------------------------------------------------- #
 
 # Check if OpenJDK is installed.
-local JAVA_VERSION=21
+export JAVA_VERSION=25
 if [[ -d "$HOMEBREW_OPT/openjdk@$JAVA_VERSION" ]]; then
     export JAVA_HOME="$HOMEBREW_OPT/openjdk@$JAVA_VERSION"
     path "$JAVA_HOME/bin"
