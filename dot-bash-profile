@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Point to Java install set up on the ZSH side
+export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null)
