@@ -3,6 +3,12 @@
 # Is a program installed? E.g. installed x || skip
 function installed() { whence "$1" &>/dev/null }
 
-# Export non-duplicates to PATH
-function path() { typeset -gU path "$1" }
+# Keep $path (and so PATH) free of duplicates: first occurrance wins.
+typeset -gU path
+
+# Prepend directories to PATH (also can move an existing entry to the front).
+function prepath() { path=("@" $path) }
+
+# Append directories to PATH (any existing entry keeps its original place).
+function postpath() { path+=("$@") }
 

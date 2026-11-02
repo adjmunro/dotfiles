@@ -6,14 +6,14 @@
 export JAVA_VERSION=25
 if [[ -d "$HOMEBREW_OPT/openjdk@$JAVA_VERSION" ]]; then
     export JAVA_HOME="$HOMEBREW_OPT/openjdk@$JAVA_VERSION"
-    path "$JAVA_HOME/bin"
+    prepath "$JAVA_HOME/bin"
 fi
 
 # --------------------------------------------------------------------------- #
 
 # Check that Jetbrains Toolbox is installed.
 if [[ -d "$HOME/Library/Application Support/JetBrains/Toolbox" ]]; then
-    path "$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
+    postpath "$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
 fi
 
 # --------------------------------------------------------------------------- #
@@ -27,8 +27,8 @@ if installed "$ANDROID_STUDIO/MacOS/studio"; then
     # You can also `brew install --cask android-platform-tools` which would be in /opt/homebrew/bin
     if [[ -d "$HOME/Library/Android/sdk" ]]; then
         export ANDROID_HOME="$HOME/Library/Android/sdk"
-        path "$ANDROID_HOME/cmdline-tools/latest/bin"
-        path "$ANDROID_HOME/emulator"
-        path "$ANDROID_HOME/platform-tools"
+        postpath "$ANDROID_HOME/cmdline-tools/latest/bin"
+        postpath "$ANDROID_HOME/emulator"
+        postpath "$ANDROID_HOME/platform-tools"
     fi
 fi
