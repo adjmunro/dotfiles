@@ -32,11 +32,11 @@ function colour() {
     printf '%b'"$fmt"'%b' "$color" "$@" "$reset_color"
 }
 
-function error() { (( ${LOG_LEVEL:-0} >= LOG_ERROR )) && colour >&2 "$fg_bold[red]" $@ }
-function warn() { (( ${LOG_LEVEL:-0} >= LOG_WARN )) && colour >&2 "$fg[yellow]" $@ }
-function info() { (( ${LOG_LEVEL:-0} >= LOG_INFO )) && colour "$fg[green]" $@ }
-function debug() { (( ${LOG_LEVEL:-0} >= LOG_DEBUG )) && colour "$fg[white]" $@ }
-function verbose() { (( ${LOG_LEVEL:-0} >= LOG_VERBOSE )) && colour "$fg[black]" $@ }
+function error() { (( ${LOG_LEVEL:-0} >= LOG_ERROR )) || return 0; colour >&2 "$fg_bold[red]" $@ }
+function warn() { (( ${LOG_LEVEL:-0} >= LOG_WARN )) || return 0; colour >&2 "$fg[yellow]" $@ }
+function info() { (( ${LOG_LEVEL:-0} >= LOG_INFO )) || return 0; colour "$fg[green]" $@ }
+function debug() { (( ${LOG_LEVEL:-0} >= LOG_DEBUG )) || return 0; colour "$fg[white]" $@ }
+function verbose() { (( ${LOG_LEVEL:-0} >= LOG_VERBOSE )) || return 0; colour "$fg[black]" $@ }
 
 function colours() {
     for c in ${(k)fg}; do
