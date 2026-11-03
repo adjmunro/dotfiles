@@ -7,7 +7,7 @@ function installed() { whence "$1" &>/dev/null }
 typeset -gU path
 
 # Prepend directories to PATH (also can move an existing entry to the front).
-function prepath() { path=("@" $path) }
+function prepath() { path=("$@" $path) }
 
 # Append directories to PATH (any existing entry keeps its original place).
 function postpath() { path+=("$@") }
