@@ -16,5 +16,5 @@ a fix-mise="mise cache clear; mise cache prune"
 # --------------------------- Activation -------------------------- #
 
 # Activate mise.
-printf "Activate %-15s %s\n" "Mise" "@$(whence -p mise)"
+debug "Activate %-15s %s\n" "Mise" "@$(whence -p mise)"
 eval "$(mise activate zsh)"
