@@ -14,9 +14,6 @@ autoload -Uz colors && colors
 (( ${+LOG_DEBUG} )) || typeset -r LOG_DEBUG=4
 (( ${+LOG_VERBOSE} )) || typeset -r LOG_VERBOSE=5
 
-# Export the default logging level
-(( ${+LOG_LEVEL} )) || typeset -g LOG_LEVEL=LOG_VERBOSE
-
 # --------------------------------------------------------------------------- #
 
 function colour() {
@@ -46,3 +43,19 @@ function colours() {
     printf '%b%-12s%b\n' "$bg_bold[$c]" "bold $c" "$reset_color"
     done
 }
+
+# --------------------------------------------------------------------------- #
+
+# Export the default logging level
+if [[ ! -o interactive ]]; then
+    # Only log errors for non-interactive shells (LLM agents) 
+    typeset -g +x LOG_LEVEL=LOG_ERROR
+else
+    # If not already set in interactive shells:
+    # default to verbose logging and warn the user! 
+    if (( ! ${+LOG_LEVEL} )); then
+         typeset -g LOG_LEVEL=LOG_VERBOSE
+         warn "LOG_LEVEL has not been set! Export it in '$DOTFILES/_local.zsh'\n"
+    fi
+fi
+
