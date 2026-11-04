@@ -9,6 +9,9 @@
 
 # --------------------------------------------------------------------------- #
 
+# Load any machine specific variables
+[[ -f "$DOTFILES/_local.zsh" ]] && source "$DOTFILES/_local.zsh"
+
 # Declare logger
 source "$DOTFILES/_libs/logger.zsh"
 

@@ -25,5 +25,3 @@ fi
 # Newline (removes '%' symbol)
 print ""
 
-# As my final act, tone down the logging.
-export LOG_LEVEL=LOG_WARN
