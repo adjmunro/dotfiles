@@ -21,6 +21,9 @@ The goals are portability, clarity, and maintainability while learning Zsh.
 - `_zsh/*.zsh` is for core shell config (theme, editor, options, etc).
 - `_session.zsh` runs last for shell startup behavior.
 
+### Debugging My Dotfiles
+Startup logging is controlled by `LOG_LEVEL` (see [logger](_libs/logger.zsh)). Non-interactive shells are forced to `LOG_ERROR`. To see warnings or debug output, run `LOG_LEVEL=LOG_DEBUG zsh -ic exit`.
+
 ## zsh-abbr
 - Load zsh-abbr in `_abbr/init.zsh` and guard it if the script isn't installed.
 - When zsh-abbr is missing, fall back to standard aliases where possible.
