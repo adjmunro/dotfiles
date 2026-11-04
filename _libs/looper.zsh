@@ -41,4 +41,6 @@ function source-dir() {
             error "%-24s %s\n" "${file:t}" "[failed]($exit_status)"
         fi
     done
+
+    info "=== done ===\n"
 }
