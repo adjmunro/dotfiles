@@ -15,7 +15,7 @@ autoload -Uz colors && colors
 (( ${+LOG_VERBOSE} )) || typeset -r LOG_VERBOSE=5
 
 # Export the default logging level
-export LOG_LEVEL=LOG_VERBOSE
+(( ${+LOG_LEVEL} )) || typeset -g LOG_LEVEL=LOG_VERBOSE
 
 # --------------------------------------------------------------------------- #
 

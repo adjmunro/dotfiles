@@ -36,7 +36,7 @@ function source-dir() {
         if (( exit_status == 0 )); then
             debug "%-24s %s\n" "${file:t}" "[ok]"
         elif (( exit_status == SKIP_DOTFILE )); then
-            warn "%-24s %s\n" "${file:t}" "[skipped]($exit_status: NotInstalled)"
+            warn "%-24s %s\n" "${file:t}" "[skipped]($exit_status::NotInstalled)"
         else
             error "%-24s %s\n" "${file:t}" "[failed]($exit_status)"
         fi
