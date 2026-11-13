@@ -3,10 +3,14 @@
 # --------------------------------------------------------------------------- #
 
 # Default "change directory"
-function cd { builtin cd "$@" && list }
-
-# Fallback access to the old cd in case something breaks
-a cd-old='command cd'
+# Only replace 'cd' for humans -- it confuses LLM agents.
+function cd {
+    if human; then
+        builtin cd "$@" && list
+    else;
+        builtin cd "$@"
+    fi
+}
 
 # Navigate up to parent directory
 a ..="cd .."
@@ -15,9 +19,10 @@ a ..="cd .."
 a ...="cd ../.."
 
 # Open key directories in the default navigator
-a home="$NAVIGATOR $HOME"
-a downloads="$NAVIGATOR $HOME/Downloads"
-a desktop="$NAVIGATOR $HOME/Desktop"
-a docs="$NAVIGATOR $HOME/Documents"
-a pics="$NAVIGATOR $HOME/Pictures"
-a dev="$NAVIGATOR $HOME/Developer"
+a .="$FILE_BROWSER ."
+a home="$FILE_BROWSER $HOME"
+a downloads="$FILE_BROWSER $HOME/Downloads"
+a desktop="$FILE_BROWSER $HOME/Desktop"
+a docs="$FILE_BROWSER $HOME/Documents"
+a pics="$FILE_BROWSER $HOME/Pictures"
+a dev="$FILE_BROWSER $HOME/Developer"

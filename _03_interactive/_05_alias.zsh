@@ -2,6 +2,8 @@
 
 # --------------------------------------------------------------------------- #
 
+return 0;
+
 # Zsh remembers which file each function came from (see $functions_source), but
 # not aliases. Record "file:line" for every alias as it's defined so that
 # `dotfiles --where <name>` can find it later.

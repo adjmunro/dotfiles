@@ -7,8 +7,8 @@ installed yazi || return $SKIP_DOTFILE
 
 # --------------------------------------------------------------------------- #
 
-# Override default "file system navigator" with yazi.
-export NAVIGATOR='yazi'
+# Override default "file system browser" with yazi.
+export FILE_BROWSER='yazi'
 
 # Enable changing the current working directory while using yazi.
 function y() {

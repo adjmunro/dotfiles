@@ -26,7 +26,7 @@ alias check-claude='grep -r "Claude Code (claude.ai/code)" . --include="*.md" | 
 alias ls-claude-broken='find . -name "CLAUDE.md" -type l ! -exec test -e {} \; -print'
 
 # Open the global claude dir in the default navigator
-a .claude="$NAVIGATOR $HOME/.claude"
+a .claude="$FILE_BROWSER $HOME/.claude"
 
 # ------------------------------
 #   Ouroboros

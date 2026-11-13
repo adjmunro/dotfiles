@@ -1,7 +1,5 @@
 #!/usr/bin/env zsh
 
 # Skip for non-interactive shells (noisy for agents).
-if [[ -o interactive ]]; then
-    # Source all files for session config
-    source-dir "_04_session"
-fi
+# Source all files for session config
+human && source-dir "_04_session"
