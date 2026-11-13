@@ -39,7 +39,7 @@ a .zlogout="$EDITOR $DOTFILES/dot-zlogout"
 # --------------------------------------------------------------------------- #
 
 # Print "file:line" where an alias or function was defined.
-# Aliases are recorded by the `alias` wrapper in _00_alias.zsh; functions come
+# Aliases are recorded by the `alias` wrapper in 05-alias.zsh; functions come
 # from zsh's own $functions_source, with the line found by searching the file.
 function _dotfiles_where() {
     emulate -L zsh
