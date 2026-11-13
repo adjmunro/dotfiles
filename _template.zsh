@@ -2,7 +2,7 @@
 
 # --------------------------------------------------------------------------- #
 
-# Check that [name] is installed
-#whence names &>/dev/null || return false
+# Check that <tool> is installed
+# installed <tool> || return $SKIP_DOTFILE
 
 # --------------------------------------------------------------------------- #
