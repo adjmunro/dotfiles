@@ -19,7 +19,9 @@
   - ~/Library/Services/ three Claude-... Quick Actions?
   - ~/Library/Application\ Support/Google/AndroidStudio2026.2.1/codestyles/alphero.xml, options/, and studio.vmoptions
   - ~/Library/Application\ Support/LogiOptionsPlus/
-  - dotfiles *local* e.g. _01_env/_50_local.zsh
+  - dotfiles *local* e.g. _01_env/50-local.zsh
   - Repos with no remote / unpushed
   - apple-intellgence/, box/, stack-cli, red-energy-sandbox (not git repos)?
   - Documents, Desktop, Downloads, Pictures, etc
+
+Josh suggested making a tarball of all known affected paths for migration. This isn't entirely a dotfiles issue either, since it would contain data that i wouldn't want to commit.
