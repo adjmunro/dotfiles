@@ -9,7 +9,30 @@ installed git || return $SKIP_DOTFILE
 
 typeset -g TRUNK_BRANCH="${TRUNK_BRANCH:-main}"
 
+# Open git configs in $EDITOR
+a .gitconfig="$EDITOR $DOTFILES/dot-gitconfig"
+a .gitlocal="$EDITOR $DOTFILES/.gitconfig.local"
 a .gitignore="$EDITOR $DOTFILES/dot-gitignore"
+
+a s="git status"
+a co="git checkout"
+a br="git branch"
+a cm="git commit -m"
+a lg="git log --oneline --graph --decorate --all"
+a push-all="git push origin --all"
+
+# List files affected by gitignore changes (i.e. already indexed)
+a list-gitignore="git ls-files --cached --ignored --exclude-standard"
+
+# Untrack a file already indexed by git
+a git-untrack-file="git rm -r --cached"
+
+# Delete merged branches? TODO(verify!)
+a rm-merged='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'
+
+function gitInsideRepo() { git rev-parse --is-inside-work-tree }
+function gitBranchName() { git rev-parse --abbrev-ref HEAD }
+function gitRepoRoot() { git rev-parse --show-toplevel }
 
 function trunk() {
     local branch=""
@@ -29,10 +52,6 @@ function trunk() {
     print "${TRUNK_BRANCH}"
 }
 
-function gitInsideRepo() { git rev-parse --is-inside-work-tree }
-function gitBranchName() { git rev-parse --abbrev-ref HEAD }
-function gitRepoRoot() { git rev-parse --show-toplevel }
-
 function gitignore() {
     (( $# == 0 )) && return false
     mkdir -p /tmp/gitignore
@@ -48,19 +67,10 @@ function gitignore() {
     rmdir /tmp/gitignore
 }
 
-# List files affected by gitignore changes (i.e. already indexed)
-a list-gitignore="git ls-files --cached --ignored --exclude-standard"
-
-# Untrack a file already indexed by git
-a git-untrack-file="git rm -r --cached"
-
 # Untrack ignored files
 function untrack-gitignore() {
     list-gitignore | sed 's/.*/\"&\"/' | xargs git rm -r --cached --
 }
-
-# Delete merged branches? TODO(verify!)
-a rm-merged='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'
 
 function fetch() {
     # No args: fetch trunk without checkout (origin trunk:trunk)
@@ -96,19 +106,7 @@ function fetch() {
     done
 }
 
-a push-all="git push origin --all"
-
 function gitstub() {
     [[ -z "$1" ]] && return 1
     mkdir -p "$1" && touch "$1/gitstub"
 }
-
-a s="git status"
-a co="git checkout"
-a br="git branch"
-a cm="git commit -m"
-a lg="git log --oneline --graph --decorate --all"
-
-# Open git configs in $EDITOR
-a .gitconfig="$EDITOR $DOTFILES/dot-gitconfig"
-a .gitlocal="$EDITOR ~/.gitconfig.local"
