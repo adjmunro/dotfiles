@@ -13,4 +13,4 @@ fi
 repo_root="$(git rev-parse --show-toplevel 2>/dev/null || true)"
 [[ -z "$repo_root" ]] && exit 0
 
-stow . --dir="$repo_root" --target="$HOME" --dotfiles --restow
+stow . --dir="$repo_root" --target="$HOME" --dotfiles --restow --no-folding
