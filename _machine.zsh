@@ -12,3 +12,6 @@ export MACHINE=""
 # i.e. warnings and errors too, but not verbose messages.
 # One-time override via 'LOG_LEVEL=LOG_DEBUG zsh -ic <command>'
 export LOG_LEVEL=${LOG_LEVEL:-LOG_INFO}
+
+# Set the oh-my-posh theme file
+# export POSH_THEME="$DOTFILES/dot-config/oh-my-posh/themes/00-MainTheme.toml"
