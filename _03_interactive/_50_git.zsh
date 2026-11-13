@@ -12,7 +12,7 @@ typeset -g TRUNK_BRANCH="${TRUNK_BRANCH:-main}"
 # Open git configs in $EDITOR
 a .gitconfig="$EDITOR $DOTFILES/dot-gitconfig"
 a .gitlocal="$EDITOR $DOTFILES/.gitconfig.local"
-a .gitignore="$EDITOR $DOTFILES/dot-gitignore"
+a .gitignore="$EDITOR $DOTFILES/dot-config/git/ignore"
 
 a s="git status"
 a co="git checkout"

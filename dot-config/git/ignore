@@ -1,0 +1,26 @@
+# Global gitignore, read by git from ~/.config/git/ignore (core.excludesfile is unset).
+# Repos can still commit any of these deliberately with `git add -f`.
+
+### Macos ###
+# Folder view configuration files
+.DS_Store
+Desktop.ini
+
+# Thumbnail cache files
+._*
+Thumbs.db
+
+# Files that might appear on external disks
+.Spotlight-V100
+.Trashes
+
+# Vim Swap & Backup files
+*.swp
+*.bak
+
+# Claude Code local state. "Don't ask again" approvals save the exact command,
+# including any token or password typed into it.
+# https://apiiro.com/blog/coding-agents-leaking-secrets-github-dont-ask-again
+.claude/settings.local.json
+.claude/worktrees/
+CLAUDE.local.md
