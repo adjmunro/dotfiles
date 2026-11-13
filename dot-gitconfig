@@ -1,3 +1,9 @@
+# Default identity. The GitHub noreply alias is public by design and still
+# links commits to the account. ~/.gitconfig.local may override it (e.g. a
+# work email), except in personal repos (see includeIf below).
+[user]
+	name = Adam Munro
+	email = 75865923+adjmunro@users.noreply.github.com
 [gpg]
 	format = ssh
 [gpg "ssh"]
@@ -20,6 +26,12 @@
 	helper = !/opt/homebrew/bin/gh auth git-credential
 [include]
 	path = ~/.gitconfig.local
+# Personal GitHub repos always use the noreply alias, even when
+# ~/.gitconfig.local sets another email. Must come after the include above.
+[includeIf "hasconfig:remote.*.url:git@github.com:adjmunro/**"]
+	path = ~/.config/git/personal.gitconfig
+[includeIf "hasconfig:remote.*.url:https://github.com/adjmunro/**"]
+	path = ~/.config/git/personal.gitconfig
 [branch]
 	autoSetupMerge = false
 
