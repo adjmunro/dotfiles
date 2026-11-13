@@ -8,7 +8,7 @@ installed mise || return $SKIP_DOTFILE
 # ---------------------------- Aliases ---------------------------- #
 
 # Easy config
-a cmise="edit ~/.config/mise/config.toml"
+a .mise="edit ~/.config/mise/config.toml"
 
 # Fix mise cache
 a fix-mise="mise cache clear; mise cache prune"
