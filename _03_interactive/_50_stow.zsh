@@ -14,6 +14,6 @@ installed stow || return $SKIP_DOTFILE
 # --dotfiles        map `dot-zshrc` to `.zshrc` etc.
 # --no-folding      symlink only leaf-nodes (files, not directories) & create intermediates
 # --restow          unstow existing symlinks, then stow it again anew
-a restow="stow . --dir=$DOTFILES --target=$HOME --dotfiles --no-folding --restow"
-a nostow="restow --simulate --verbose=1"
-a unstow="stow --dir=$DOTFILES --target=$HOME --dotfiles --delete ."
+a restow="stow . --dir=$DOTFILES --target=$HOME --dotfiles --no-folding --restow --verbose=2"
+a nostow="restow --simulate --verbose=2"
+a unstow="stow --dir=$DOTFILES --target=$HOME --dotfiles --verbose=2 --delete ."
