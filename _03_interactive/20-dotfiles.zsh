@@ -88,7 +88,7 @@ function _dotfiles_where() {
 function dotfiles() {
     # No args => open file browser for dotfiles repo.
     if (( $# == 0 )); then
-        $NAVIGATOR $DOTFILES;
+        $FILE_BROWSER $DOTFILES;
         return true;
     fi;
 
@@ -113,7 +113,7 @@ function dotfiles() {
             case $sub in
                 (-w|--where) print -r -- $loc ;;
                 (-v|--view)  ${=VIEW} $file ;;
-                (-n|--nav)   ${=NAVIGATOR} $file ;;
+                (-n|--nav)   ${=FILE_BROWSER} $file ;;
                 (-e|--edit)
                     # Most terminal editors accept +N to jump to a line.
                     local -a editor=(${=EDITOR})
