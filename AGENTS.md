@@ -20,6 +20,7 @@ Keep your edits succinct: a human MUST review your changes!
 ## Lessons
 - Before deleting a file under `~` that looks unlinked, check `realpath` of its parents: older stows folded whole directories (e.g. `~/.config/mise`) into links to this repo, so it may be the repo's copy. `restow` (`--no-folding`) unfolds them.
 - Tools that rewrite their own config (mise, Zed, Graphite) write through these links into the repo, so check `git status` after using them.
+- 1Password SSH agent signing (ssh logins, `git commit -S`) fails from an agent's sandboxed shell with "communication with agent failed"; listing keys works. Run those tests in the user's terminal so they can approve with Touch ID.
 
 ## Debugging
 Startup logging is controlled by `$LOG_LEVEL` (see [logger](_libs/logger.zsh)). Non-interactive shells are forced to `$LOG_ERROR`. To see warnings or debug output, run `LOG_LEVEL=LOG_DEBUG zsh -ic exit`.
