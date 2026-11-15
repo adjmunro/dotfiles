@@ -1,48 +1,66 @@
-# Default identity. The GitHub noreply alias is public by design and still
-# links commits to the account. ~/.gitconfig.local may override it (e.g. a
-# work email), except in personal repos (see includeIf below).
+# IMPORTANT! Always use github's noreply alias for email addresses to avoid leaking PII!
+
+# Default identity.
 [user]
 	name = Adam Munro
-	email = 75865923+adjmunro@users.noreply.github.com
+    # Refuse to commit until a valid identity is set via includeIf.
+    # Repos at github.com/adjmunro are routed to ~/.config/git/personal.gitconfig 
+    useConfigOnly = true
+
 [gpg]
+    # Reuse our SSH Authentication Key as a Signing Key instead of GPG.
 	format = ssh
+
 [gpg "ssh"]
+    # Derive all SSH keys from 1Password, to keep it out of reach of agents. 
 	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+    # Put your public keys in here so that git can validate it is used correctly.
 	allowedSignersFile = ~/.config/git/allowed_signers
-[commit]
-	gpgsign = false
-[push]
-    autoSetupRemote = true
+
 [init]
 	defaultBranch = develop
+
+[commit]
+    # Commit signing needs to be disabled for uninterrupted LLM work.
+    # Use a pre-push git hook and repo rules to enforce signing.
+	gpgsign = false
+
+[branch]
+	autoSetupMerge = false
+
+[push]
+    autoSetupRemote = true
+
 [core]
     editor = vim
-	# No global core.hooksPath: it replaces every repo's .git/hooks rather than
-	# adding to them. For hooks in every repo, use `hook.<name>.command` and
-	# `hook.<name>.event` (see `git help hook`), which run before the repo's own.
 	# Convert CRLF to LF on commit, never the reverse on checkout, so files
 	# edited on Windows can't sneak CRLF into history. (Windows itself wants
 	# `true`, which Git for Windows sets system-wide.) A repo's .gitattributes
 	# (`* text=auto`) overrides this and is the portable fix for shared repos.
 	autocrlf = input
+
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+
 [credential "https://github.com"]
 	helper =
 	helper = !/opt/homebrew/bin/gh auth git-credential
+
 [credential "https://gist.github.com"]
 	helper =
 	helper = !/opt/homebrew/bin/gh auth git-credential
-[include]
-	path = ~/.gitconfig.local
-# Personal GitHub repos always use the noreply alias, even when
-# ~/.gitconfig.local sets another email. Must come after the include above.
+
+# Settings for repos at github/adjmunro
 [includeIf "hasconfig:remote.*.url:git@github.com:adjmunro/**"]
 	path = ~/.config/git/personal.gitconfig
 [includeIf "hasconfig:remote.*.url:https://github.com/adjmunro/**"]
 	path = ~/.config/git/personal.gitconfig
-[branch]
-	autoSetupMerge = false
+
+# Settings for repos at github/alphero
+[includeIf "hasconfig:remote.*.url:git@github.com:adjmunro/**"]
+	path = ~/.config/git/personal.gitconfig
+[includeIf "hasconfig:remote.*.url:https://github.com/adjmunro/**"]
+	path = ~/.config/git/personal.gitconfig
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Conflict resolution & rebasing
