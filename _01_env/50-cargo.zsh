@@ -1,7 +1,8 @@
 #!/usr/bin/env zsh
 
-# Check that cargo is installed
-installed cargo || return $SKIP_DOTFILE
+# Check that rustup is installed. Test the env file, not `installed cargo`:
+# cargo is only on PATH *after* this file runs.
+[[ -f "$HOME/.cargo/env" ]] || return $SKIP_DOTFILE
 
-# Source Cargo Environment
-source "$HOME/.cargo/env"
+# Put ~/.cargo/bin (rustup's cargo, rustc, clippy, rustfmt…) on PATH.
+prepath "$HOME/.cargo/bin"
