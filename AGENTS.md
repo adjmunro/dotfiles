@@ -1,6 +1,6 @@
 # Agents.md
 
-> !! IMPORTANT !! This repository is PUBLIC and therefore must not commit personal information or private keys etc. 
+> !! IMPORTANT !! This repository is PUBLIC and therefore must not commit personal information such as: PII, email address, phone number, address, social media account usernames, IP addresses, GPS coordinates, API keys, or private keys etc. My name, my employer's name, Tailscale's MagicDNS hostnames, public keys, and github's email aliases are acceptable. 
 
 You may edit this file (and linked Markdown files) with painful lessons you have learnt if, while working, you encounter a tooling issue that sidetracks you from achieving your goals or something non-obvious, e.g.: 
 (a) you took many (3+) turns understand something; 
