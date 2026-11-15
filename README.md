@@ -83,7 +83,6 @@ I have some custom core functions to simplify the shell for me, such as coloured
 | ✅ | `.ghostty` | `$DOTFILES/dot-config/ghostty/config` |
 | | `.ghosttylocal` | `$DOTFILES/dot-config/ghostty/local-config` |
 | ✅ | `.gitconfig` | `$DOTFILES/dot-gitconfig` |
-| ✅ | `.gitlocal` | `$DOTFILES/.gitconfig.local` |
 | ✅ | `.gitignore` | `$DOTFILES/dot-config/git/ignore` |
 | | `.mise` | `~/.config/mise/config.toml` |
 | | `.zlocal` | `$DOTFILES/_local.zsh` |
