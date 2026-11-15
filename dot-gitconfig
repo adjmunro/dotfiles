@@ -1,11 +1,13 @@
 # IMPORTANT! Always use github's noreply alias for email addresses to avoid leaking PII!
 
-# Default identity.
 [user]
 	name = Adam Munro
-    # Refuse to commit until a valid identity is set via includeIf.
-    # Repos at github.com/adjmunro are routed to ~/.config/git/adjmunro.gitconfig 
-    useConfigOnly = true
+
+# The adjmunro identity (email and signing key) is the default, so repos with no
+# remote yet (or an unrecognised one) fall back to it. The work includeIfs
+# further down override it.
+[include]
+	path = ~/.config/git/adjmunro.gitconfig
 
 [gpg]
     # Reuse our SSH Authentication Key as a Signing Key instead of GPG.
@@ -50,17 +52,14 @@
 	helper =
 	helper = !/opt/homebrew/bin/gh auth git-credential
 
-# Settings for repos at github/adjmunro
-[includeIf "hasconfig:remote.*.url:git@github.com:adjmunro/**"]
-	path = ~/.config/git/adjmunro.gitconfig
-[includeIf "hasconfig:remote.*.url:https://github.com/adjmunro/**"]
-	path = ~/.config/git/adjmunro.gitconfig
-
-# Settings for repos at github/alphero
-[includeIf "hasconfig:remote.*.url:git@github.com:adjmunro/**"]
-	path = ~/.config/git/adjmunro.gitconfig
-[includeIf "hasconfig:remote.*.url:https://github.com/adjmunro/**"]
-	path = ~/.config/git/adjmunro.gitconfig
+# Work identity for repos at github.com/alphero. Must come after the adjmunro
+# include so it wins. Git skips a missing include, so this is a no-op until
+# alphero.gitconfig exists (see _docs/SSH.md). Also applies during `git clone`.
+# TODO: confirm the GitHub org slug on the work machine.
+[includeIf "hasconfig:remote.*.url:git@github.com:alphero/**"]
+	path = ~/.config/git/alphero.gitconfig
+[includeIf "hasconfig:remote.*.url:https://github.com/alphero/**"]
+	path = ~/.config/git/alphero.gitconfig
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Conflict resolution & rebasing
