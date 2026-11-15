@@ -13,9 +13,16 @@
 	gpgsign = false
 [push]
     autoSetupRemote = true
+[init]
+	defaultBranch = develop
 [core]
     editor = vim
 	hooksPath = ~/.config/git/hooks
+	# Convert CRLF to LF on commit, never the reverse on checkout, so files
+	# edited on Windows can't sneak CRLF into history. (Windows itself wants
+	# `true`, which Git for Windows sets system-wide.) A repo's .gitattributes
+	# (`* text=auto`) overrides this and is the portable fix for shared repos.
+	autocrlf = input
 [url "git@github.com:"]
 	insteadOf = https://github.com/
 [credential "https://github.com"]
