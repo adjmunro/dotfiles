@@ -4,7 +4,7 @@
 [user]
 	name = Adam Munro
     # Refuse to commit until a valid identity is set via includeIf.
-    # Repos at github.com/adjmunro are routed to ~/.config/git/personal.gitconfig 
+    # Repos at github.com/adjmunro are routed to ~/.config/git/adjmunro.gitconfig 
     useConfigOnly = true
 
 [gpg]
@@ -52,15 +52,15 @@
 
 # Settings for repos at github/adjmunro
 [includeIf "hasconfig:remote.*.url:git@github.com:adjmunro/**"]
-	path = ~/.config/git/personal.gitconfig
+	path = ~/.config/git/adjmunro.gitconfig
 [includeIf "hasconfig:remote.*.url:https://github.com/adjmunro/**"]
-	path = ~/.config/git/personal.gitconfig
+	path = ~/.config/git/adjmunro.gitconfig
 
 # Settings for repos at github/alphero
 [includeIf "hasconfig:remote.*.url:git@github.com:adjmunro/**"]
-	path = ~/.config/git/personal.gitconfig
+	path = ~/.config/git/adjmunro.gitconfig
 [includeIf "hasconfig:remote.*.url:https://github.com/adjmunro/**"]
-	path = ~/.config/git/personal.gitconfig
+	path = ~/.config/git/adjmunro.gitconfig
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Conflict resolution & rebasing
