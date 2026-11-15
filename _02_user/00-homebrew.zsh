@@ -7,7 +7,8 @@
 
 # --------------------------------------------------------------------------- #
 
-# Load Homebrew after macOS path_helper (after zshenv)
-# so /opt/homebrew/bin stays ahead of system
-# paths like /usr/bin in login shells.
-eval "$($BREW/brew shellenv)"
+# macOS /etc/zprofile runs path_helper between zshenv and zprofile, which moves
+# system paths like /usr/bin ahead of Homebrew. _01_env already ran shellenv
+# (HOMEBREW_* vars, fpath, INFOPATH), so only PATH order needs restoring here.
+# Re-running shellenv would duplicate fpath and INFOPATH entries.
+prepath "$BREW" "$HOMEBREW/sbin"
