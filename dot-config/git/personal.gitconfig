@@ -1,3 +1,4 @@
 # Included by ~/.gitconfig for repos with a github.com/adjmunro remote.
 [user]
 	email = 75865923+adjmunro@users.noreply.github.com
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFe/yjmltWjx7hwZwGLRQnmzGOxlO5++hsaS83sQSD1t
