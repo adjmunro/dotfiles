@@ -17,7 +17,9 @@
 	defaultBranch = develop
 [core]
     editor = vim
-	hooksPath = ~/.config/git/hooks
+	# No global core.hooksPath: it replaces every repo's .git/hooks rather than
+	# adding to them. For hooks in every repo, use `hook.<name>.command` and
+	# `hook.<name>.event` (see `git help hook`), which run before the repo's own.
 	# Convert CRLF to LF on commit, never the reverse on checkout, so files
 	# edited on Windows can't sneak CRLF into history. (Windows itself wants
 	# `true`, which Git for Windows sets system-wide.) A repo's .gitattributes

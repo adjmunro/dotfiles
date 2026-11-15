@@ -54,6 +54,10 @@ I have some custom core functions to simplify the shell for me, such as coloured
   cp -i $DOTFILES/_machine.zsh $DOTFILES/_local.zsh && \
   vim $DOTFILES/_local.zsh
   ```
+6. **Enable this repository's hooks** (re-stow after every commit and checkout).
+  ```zsh
+  git -C $DOTFILES config core.hooksPath .githooks
+  ```
 
 ---
 
