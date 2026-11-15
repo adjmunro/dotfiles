@@ -15,24 +15,15 @@ Private keys live only in 1Password. Its SSH agent serves them, and Touch ID app
 3. Save the public key as `dot-ssh/<name>.pub`, then add a `Host` block with `IdentityFile ~/.ssh/<name>.pub` and `IdentitiesOnly yes`.
 4. For a server, append the public key to its `~/.ssh/authorized_keys` *before* removing the old key, and test the new one first.
 
-## Work machine (not set up yet)
+## Work identity
 
-Git identity and the GitHub account used for SSH are separate. Both need routing.
+Git identity and the GitHub account used for SSH are separate. Both need routing. `dot-gitconfig` includes `dot-config/git/alphero.gitconfig` for `github.com/alpheroltd/**` remotes. It sets:
 
-1. Create a work SSH key in 1Password and add it to the work GitHub account for authentication and signing.
-2. Save it as `dot-ssh/alphero.pub`, and add a line for it to `allowed_signers` using the work noreply address.
-3. Create `dot-config/git/alphero.gitconfig`. `dot-gitconfig` already includes it for `github.com/alphero/**` remotes (check the org slug):
+- `user.email`: the `adjmunro-alphero` noreply address.
+- `user.signingkey`: the work signing key, also listed in `allowed_signers`.
+- `core.sshCommand = ssh -i ~/.ssh/alphero.pub`: the work authentication key (`dot-ssh/alphero.pub`).
 
-   ```gitconfig
-   [user]
-   	email = <id>+<work-username>@users.noreply.github.com
-   	signingkey = ssh-ed25519 AAAA... Alphero
-   # Offer the work key before the github.com default, so GitHub logs in as the work account.
-   [core]
-   	sshCommand = ssh -i ~/.ssh/alphero.pub
-   ```
-
-4. Delete `~/.gitconfig.local` once that works.
+The work account uses separate 1Password keys for authentication and signing, so `alphero.pub` is not the signing key.
 
 GitHub logs in as whichever account owns the first key it accepts. Without the `sshCommand`, work pushes would authenticate as the adjmunro account and fail with "repository not found". Repos that match neither pattern fall back to the adjmunro identity.
 

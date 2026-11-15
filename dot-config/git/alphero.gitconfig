@@ -1,0 +1,7 @@
+# Work identity, loaded by ~/.gitconfig for github.com/alpheroltd remotes. Overrides adjmunro.gitconfig.
+[user]
+	email = 283542399+adjmunro-alphero@users.noreply.github.com
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGdQ2tg1M1CgX0PGUnfZkx5S02NPuQbtjdKpzMU48EEN
+# Offer the work key before the github.com default, so GitHub logs in as the work account.
+[core]
+	sshCommand = ssh -i ~/.ssh/alphero.pub

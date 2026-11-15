@@ -52,13 +52,11 @@
 	helper =
 	helper = !/opt/homebrew/bin/gh auth git-credential
 
-# Work identity for repos at github.com/alphero. Must come after the adjmunro
-# include so it wins. Git skips a missing include, so this is a no-op until
-# alphero.gitconfig exists (see _docs/SSH.md). Also applies during `git clone`.
-# TODO: confirm the GitHub org slug on the work machine.
-[includeIf "hasconfig:remote.*.url:git@github.com:alphero/**"]
+# Work identity for repos at github.com/alpheroltd. Must come after the adjmunro
+# include so it wins. Also applies during `git clone` (see _docs/SSH.md).
+[includeIf "hasconfig:remote.*.url:git@github.com:alpheroltd/**"]
 	path = ~/.config/git/alphero.gitconfig
-[includeIf "hasconfig:remote.*.url:https://github.com/alphero/**"]
+[includeIf "hasconfig:remote.*.url:https://github.com/alpheroltd/**"]
 	path = ~/.config/git/alphero.gitconfig
 
 # ─────────────────────────────────────────────────────────────────────────────
