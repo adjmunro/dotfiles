@@ -12,8 +12,21 @@
     "shell": "system"
   },
   "redact_private_values": false,
+  "icon_theme": "JetBrains Icons Dark",
   "project_panel": {
     "dock": "left"
+  },
+  "outline_panel": {
+    "dock": "left"
+  },
+  "collaboration_panel": {
+    "dock": "left"
+  },
+  "git_panel": {
+    "dock": "left"
+  },
+  "agent": {
+    "dock": "right"
   },
   "telemetry": {
     "diagnostics": false,
@@ -24,7 +37,7 @@
   "buffer_font_size": 15,
   "theme": {
     "mode": "system",
-    "light": "One Light",
-    "dark": "One Dark",
+    "light": "Ayu Light",
+    "dark": "Gruvbox Dark",
   },
 }
