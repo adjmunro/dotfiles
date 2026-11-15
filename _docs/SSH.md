@@ -21,11 +21,11 @@ Git identity and the GitHub account used for SSH are separate. Both need routing
 
 - `user.email`: the `adjmunro-alphero` noreply address.
 - `user.signingkey`: the work signing key, also listed in `allowed_signers`.
-- `core.sshCommand = ssh -i ~/.ssh/alphero.pub`: the work authentication key (`dot-ssh/alphero.pub`).
+- `url.insteadOf`: rewrites the remote to `git@github-alphero:alpheroltd/…`. That `dot-ssh/config` alias offers only the work authentication key (`dot-ssh/alphero.pub`).
 
 The work account uses separate 1Password keys for authentication and signing, so `alphero.pub` is not the signing key.
 
-GitHub logs in as whichever account owns the first key it accepts. Without the `sshCommand`, work pushes would authenticate as the adjmunro account and fail with "repository not found". Repos that match neither pattern fall back to the adjmunro identity.
+GitHub logs in as whichever account owns the first key it accepts. `ssh -i` does not fix this: the `github.com` block's key is still offered, and ssh orders keys by the agent's order, not `-i` order. Without the alias, work pushes authenticate as adjmunro and fail with "repository not found". Repos that match neither pattern fall back to the adjmunro identity.
 
 1Password can sign in to both the personal and work accounts at once. The agent offers keys from every vault listed in `agent.toml`, so list only the vaults each machine should use.
 

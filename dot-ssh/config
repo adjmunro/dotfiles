@@ -15,6 +15,14 @@ Host github.com
 	IdentityFile ~/.ssh/github.pub
 	IdentitiesOnly yes
 
+# Work GitHub account. alphero.gitconfig rewrites alpheroltd remotes to this
+# alias, so only the work key is offered.
+Host github-alphero
+	HostName github.com
+	User git
+	IdentityFile ~/.ssh/alphero.pub
+	IdentitiesOnly yes
+
 # 1Password's agent socket. Linux creates it here; on macOS it is a symlink to
 # the app's Group Container socket, made by _01_env/50-1password.zsh.
 Host *
